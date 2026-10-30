@@ -1,0 +1,71 @@
+# Spectralizer — full notes for language models
+
+Source site: https://grishinskeo-ship-it.github.io/Spectralizer/
+GitHub: https://github.com/grishinskeo-ship-it/Spectralizer
+License: GPL-3.0-or-later
+Version: 1.0.0
+
+---
+
+# Spectralizer
+
+Анализатор частотного спектра. Три оболочки одной идеи: веб, Windows desktop, VST3/CLAP.
+
+Сайт: https://grishinskeo-ship-it.github.io/Spectralizer/
+Репозиторий: https://github.com/grishinskeo-ship-it/Spectralizer
+Сборки: https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0
+Веб-приложение: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+
+Нужен, когда надо не «на глаз», а по FFT: из чего состоит сэмпл, где fundamental, какие обертона, что происходит на дорожке во время Play.
+
+Кому: саунд-дизайнерам (fundamental, обертона, модель для VCV Rack), продюсерам в DAW (спектр канала или master), тем, кто учит DSP (окна FFT, log/dB, фаза, overlap-add resynth).
+
+| Что | Для чего | Кому |
+|---|---|---|
+| Веб https://grishinskeo-ship-it.github.io/Spectralizer/app/ | Файл → спектр в браузере | Попробовать сразу |
+| Desktop | То же офлайн на Windows | Portable .exe |
+| VST3 / CLAP | Спектр входа DAW, pass-through | FL Studio, Reaper, Bitwig |
+
+---
+
+# Веб
+
+Адрес: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+
+Тот же анализатор, что Desktop: React + Web Audio + fft.js. Файл выбирается локально и декодируется в браузере. На сервер аудио не уходит.
+
+Вкладки: Анализ, VCV VCO, Фаза, Resynth. Форматы зависят от браузера (Chrome: MP3, WAV, FLAC, OGG, AAC). FFT 256…8192, окна Rectangular / Hanning / Hamming / Blackman. Воспроизведение, loop, zoom, таблица partials и CSV. Недавние файлы — IndexedDB.
+
+Плагин VST3/CLAP в вебе недоступен.
+
+---
+
+# Desktop
+
+Windows portable: https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/Spectralizer-1.0.0-portable.exe
+
+Вкладки: Анализ (magnitude, waveform, loop), VCV VCO (fundamental, V/Oct, CSV), Фаза, Resynth (overlap-add iFFT).
+
+Клавиши: Space play/pause; стрелки timeline; 1–4 вкладки; Ctrl+O файл; L loop; R resynth; Esc zoom.
+
+---
+
+# VST3 / CLAP
+
+Pass-through анализатор. Спектр живой на Play, на Stop — последний кадр.
+
+VST3: FL Studio, Reaper, Cubase, Ableton. CLAP: Bitwig, Reaper 7+.
+
+FL Studio: только C:\Program Files\Common Files\VST3\ затем F10 → Manage plugins → Verify + rescan.
+
+---
+
+# FAQ
+
+Веб — попробовать файл. Desktop — офлайн Windows. VST — спектр в миксе.
+
+Документация только на GitHub Pages, не на github.io/wiki и не во вкладке Wiki репозитория.
+
+Шум справа на log-шкале: много бинов в узкой полосе верхов, Hanning + сглаживание 2–4.
+
+Лицензия GPL-3.0-or-later.

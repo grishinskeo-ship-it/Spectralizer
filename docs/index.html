@@ -3,15 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Spectralizer — анализатор спектра</title>
+    <title>Spectralizer — анализатор спектра (веб, Desktop, VST)</title>
+    <meta name="description" content="Spectralizer — анализатор частотного спектра. Веб без установки, Windows desktop и VST3/CLAP для DAW: FFT, гармоники, фаза, resynth, модель VCO." />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="keywords" content="spectrum analyzer, FFT, VST3, CLAP, анализатор спектра, гармоники, VCO, Web Audio" />
+    <link rel="canonical" href="https://grishinskeo-ship-it.github.io/Spectralizer/" />
+    <link rel="alternate" type="text/markdown" href="index.md" />
+    <link rel="describedby" href="llms.txt" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/style.css" />
+    <meta property="og:title" content="Spectralizer — анализатор спектра" />
+    <meta property="og:description" content="Веб, Desktop и VST3/CLAP: смотрите, из чего состоит звук. FFT, гармоники, фаза, resynth." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://grishinskeo-ship-it.github.io/Spectralizer/" />
+    <meta property="og:image" content="https://grishinskeo-ship-it.github.io/Spectralizer/screenshots/desktop-analysis.png" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Spectralizer","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, Web","softwareVersion":"1.0.0","url":"https://grishinskeo-ship-it.github.io/Spectralizer/","downloadUrl":"https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0","license":"https://www.gnu.org/licenses/gpl-3.0.html","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"codeRepository":"https://github.com/grishinskeo-ship-it/Spectralizer","description":"Анализатор частотного спектра: веб-приложение, Windows desktop и VST3/CLAP плагин. FFT, гармоники, фаза, resynth, модель VCO для VCV Rack."}
+    </script>
   </head>
   <body>
     <header class="top">
       <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
       <nav>
         <a class="active" href="index.html">Обзор</a>
+        <a href="app/">Веб</a>
         <a href="desktop.html">Desktop</a>
         <a href="vst.html">VST</a>
         <a href="install.html">Установка</a>
@@ -20,17 +37,17 @@
     </header>
 
     <main class="wrap">
-      <p class="kicker">Desktop + VST3 / CLAP</p>
+      <p class="kicker">Веб · Desktop · VST3 / CLAP</p>
       <h1>Смотрите, из чего состоит звук</h1>
       <p class="lead">
-        Spectralizer — анализатор частотного спектра. Десктопное приложение разбирает
-        загруженный файл по гармоникам, фазе и resynth. Плагин в DAW показывает спектр
-        дорожки в реальном времени и не трогает звук.
+        Spectralizer — анализатор частотного спектра. В браузере разбирает загруженный файл
+        по гармоникам, фазе и resynth. Плагин в DAW показывает спектр дорожки в реальном
+        времени и не трогает звук.
       </p>
       <div class="actions">
-        <a class="btn" href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">Скачать v1.0.0</a>
+        <a class="btn" href="app/">Открыть в браузере</a>
+        <a class="btn ghost" href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">Скачать v1.0.0</a>
         <a class="btn ghost" href="install.html">Как установить</a>
-        <a class="btn ghost" href="https://github.com/grishinskeo-ship-it/Spectralizer">Исходники</a>
       </div>
 
       <img class="hero-shot" src="screenshots/desktop-analysis.png" alt="Вкладка Анализ: спектр, настройки FFT и waveform" />
@@ -51,20 +68,25 @@
         </article>
       </div>
 
-      <h2>Два продукта в одном репозитории</h2>
+      <h2>Три способа пользоваться</h2>
       <table>
         <thead>
           <tr>
             <th>Что</th>
             <th>Для чего</th>
-            <th>Кому ставить</th>
+            <th>Кому</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td><a href="app/">Веб</a></td>
+            <td>Тот же анализатор в браузере, файл никуда не уходит</td>
+            <td>Попробовать сразу, без установки</td>
+          </tr>
+          <tr>
             <td><a href="desktop.html">Desktop</a></td>
             <td>Файл → спектр, фаза, resynth, таблица VCO</td>
-            <td>Работа вне DAW, разбор сэмпла, экспорт CSV</td>
+            <td>Офлайн, Windows portable .exe</td>
           </tr>
           <tr>
             <td><a href="vst.html">VST3 / CLAP</a></td>
@@ -76,5 +98,18 @@
     </main>
 
     <footer>GPL-3.0-or-later · v1.0.0 · <a href="https://github.com/grishinskeo-ship-it/Spectralizer">GitHub</a></footer>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113942554', 'ym');
+
+        ym(113942554, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/113942554" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
   </body>
 </html>

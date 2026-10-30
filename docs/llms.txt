@@ -1,0 +1,29 @@
+# Spectralizer
+
+> FFT spectrum analyzer: browser app, Windows desktop, and VST3/CLAP plugin. Open an audio file or watch a DAW input. Local, GPL-3.0-or-later.
+
+Site: https://grishinskeo-ship-it.github.io/Spectralizer/
+Repo: https://github.com/grishinskeo-ship-it/Spectralizer
+Releases: https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0
+
+## Product
+
+- [Overview](https://grishinskeo-ship-it.github.io/Spectralizer/index.md): what Spectralizer is, who it is for, web vs desktop vs plugin
+- [Web app](https://grishinskeo-ship-it.github.io/Spectralizer/web.md): run the analyzer in the browser, no install
+- [Desktop](https://grishinskeo-ship-it.github.io/Spectralizer/desktop.md): Windows portable app, four tabs, hotkeys
+- [VST / CLAP](https://grishinskeo-ship-it.github.io/Spectralizer/vst.md): real-time DAW analyzer, pass-through
+- [Install](https://grishinskeo-ship-it.github.io/Spectralizer/install.md): downloads, FL Studio VST3 path, build from source
+- [FAQ](https://grishinskeo-ship-it.github.io/Spectralizer/faq.md): which edition to use, FL Studio scan, license
+
+## Live HTML
+
+- https://grishinskeo-ship-it.github.io/Spectralizer/
+- https://grishinskeo-ship-it.github.io/Spectralizer/app/
+- https://grishinskeo-ship-it.github.io/Spectralizer/desktop.html
+- https://grishinskeo-ship-it.github.io/Spectralizer/vst.html
+- https://grishinskeo-ship-it.github.io/Spectralizer/install.html
+- https://grishinskeo-ship-it.github.io/Spectralizer/faq.html
+
+## Optional
+
+- [Full dump](https://grishinskeo-ship-it.github.io/Spectralizer/llms-full.txt): concatenated markdown for one-shot context

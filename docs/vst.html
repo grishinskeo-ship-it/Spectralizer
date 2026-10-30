@@ -3,15 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>VST — Spectralizer</title>
+    <title>VST3 / CLAP — Spectralizer</title>
+    <meta name="description" content="Spectralizer VST3 и CLAP: real-time спектроскоп для FL Studio, Reaper, Bitwig. Pass-through, FFT, гармоники, модель VCO. Не обрабатывает звук." />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <link rel="canonical" href="https://grishinskeo-ship-it.github.io/Spectralizer/vst.html" />
+    <link rel="alternate" type="text/markdown" href="vst.md" />
+    <link rel="describedby" href="llms.txt" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/style.css" />
+    <meta property="og:title" content="VST3 / CLAP — Spectralizer" />
+    <meta property="og:description" content="Плагин-анализатор для DAW: спектр входа в реальном времени, pass-through." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://grishinskeo-ship-it.github.io/Spectralizer/vst.html" />
+    <meta property="og:image" content="https://grishinskeo-ship-it.github.io/Spectralizer/screenshots/vst-analysis.png" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Spectralizer VST","applicationCategory":"MultimediaApplication","operatingSystem":"Windows","softwareVersion":"1.0.0","url":"https://grishinskeo-ship-it.github.io/Spectralizer/vst.html","downloadUrl":"https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isAccessibleForFree":true}
+    </script>
   </head>
   <body>
     <header class="top">
       <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
       <nav>
         <a href="index.html">Обзор</a>
+        <a href="app/">Веб</a>
         <a href="desktop.html">Desktop</a>
         <a class="active" href="vst.html">VST</a>
         <a href="install.html">Установка</a>
@@ -24,6 +40,7 @@
       <p class="lead">
         Real-time спектроскоп на дорожке. Аудио проходит без обработки (analyzer / pass-through).
         Пока играет транспорт — спектр обновляется; на Stop остаётся последний кадр.
+        Для файлов вне DAW есть <a href="app/">веб</a> и <a href="desktop.html">Desktop</a>.
       </p>
       <img class="hero-shot" src="screenshots/vst-analysis.png" alt="Spectralizer в FL Studio, вкладка Анализ" />
 
@@ -50,5 +67,18 @@
       <p>Подробная установка — на странице <a href="install.html">Установка</a>.</p>
     </main>
     <footer>GPL-3.0-or-later из‑за VST3 bindings NIH-plug</footer>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113942554', 'ym');
+
+        ym(113942554, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/113942554" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
   </body>
 </html>

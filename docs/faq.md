@@ -1,0 +1,27 @@
+# FAQ — Spectralizer
+
+## Веб, Desktop или VST?
+
+Попробовать анализатор файла — [веб](https://grishinskeo-ship-it.github.io/Spectralizer/app/). Офлайн на Windows — Desktop. Спектр в миксе во время Play — VST3 или CLAP.
+
+## Где документация?
+
+https://grishinskeo-ship-it.github.io/Spectralizer/
+
+Вкладка Wiki у репозитория отключена. Адрес `github.io/wiki/…` не существует.
+
+## Почему справа на log-шкале «шум»?
+
+Тысячи FFT-бинов сжимаются в узкую полосу высоких частот. Возьмите окно Hanning и сглаживание 2–4.
+
+## Tooltip ниже, чем шкала?
+
+«Мин. dB» — низ графика. Реальный бин может быть тише; кривая обрезается у нижней линии, цифра в tooltip — фактическая.
+
+## FL Studio не видит плагин
+
+Только `C:\Program Files\Common Files\VST3\`. Папка `target\bundled` хостом игнорируется. Дальше — rescan.
+
+## Лицензия
+
+GPL-3.0-or-later. При распространении сборок оставляйте исходники и текст лицензии.

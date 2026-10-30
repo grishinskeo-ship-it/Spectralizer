@@ -1,20 +1,20 @@
 # Spectralizer
 
-Анализатор частотного спектра: **десктоп** для файлов и **VST3/CLAP** для DAW.
+📦 [Скачать v1.0.0](https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0) · 📖 [Документация](https://grishinskeo-ship-it.github.io/Spectralizer/) · 🌐 [Открыть в браузере](https://grishinskeo-ship-it.github.io/Spectralizer/app/)
+
+Анализатор частотного спектра: **веб** для быстрого разбора файла, **десктоп** офлайн и **VST3/CLAP** для DAW.
 
 Нужен, когда надо не «на глаз», а по FFT: из чего состоит сэмпл, где fundamental, какие обертона, что происходит на дорожке во время Play.
 
-| | Desktop | VST / CLAP |
-|---|---|---|
-| **Задача** | Разобрать загруженный файл | Смотреть спектр входа DAW |
-| **Кому** | Саунд-дизайн, разбор тембра, VCV Rack, учёба DSP | Сведение, проверка дорожки, freeze на Stop |
-| **Звук** | Воспроизведение файла | Pass-through, сигнал не меняется |
-
-📦 [Скачать v1.0.0](https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0) · 📖 [Документация](https://grishinskeo-ship-it.github.io/Spectralizer/)
+| | Веб | Desktop | VST / CLAP |
+|---|---|---|---|
+| **Задача** | Тот же анализатор в браузере | Разобрать загруженный файл офлайн | Смотреть спектр входа DAW |
+| **Кому** | Попробовать без установки | Саунд-дизайн, VCV Rack, учёба DSP | Сведение, проверка дорожки |
+| **Звук** | Файл локально в браузере | Воспроизведение файла | Pass-through, сигнал не меняется |
 
 ## Desktop
 
-Четыре рабочих области одного окна.
+Четыре рабочих области одного окна. В браузере — [тот же интерфейс](https://grishinskeo-ship-it.github.io/Spectralizer/app/).
 
 **Анализ** — magnitude spectrum, настройки FFT, waveform и loop.
 
@@ -36,7 +36,8 @@
 
 ```bash
 npm install
-npm run dev          # браузер
+npm run dev          # браузер (локально)
+npm run build:web    # копия для GitHub Pages → docs/app
 npm run pack:portable  # Windows .exe
 ```
 
@@ -58,4 +59,4 @@ cargo xtask bundle spectralizer-vst --release
 
 ## Стек
 
-React 19 + Vite + Electron · Rust + NIH-plug + egui + realfft · лицензия **GPL-3.0-or-later**.
+React 19 + Vite + Web Audio · Electron · Rust + NIH-plug + egui + realfft · лицензия **GPL-3.0-or-later**.

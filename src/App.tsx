@@ -438,6 +438,13 @@ function App() {
       <header className="app-header">
         <div>
           <h1>Spectralizer</h1>
+          {import.meta.env.MODE === 'web' && (
+            <p>
+              Веб-версия · <a href="../">Документация</a>
+              {' · '}
+              <a href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">Скачать</a>
+            </p>
+          )}
         </div>
         <div className="header-actions">
           <FileUpload

@@ -30,6 +30,15 @@
   color: #8b949e;
 }
 
+.app-header a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.app-header a:hover {
+  text-decoration: underline;
+}
+
 .header-actions {
   display: flex;
   align-items: center;

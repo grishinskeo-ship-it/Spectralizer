@@ -1,10 +1,11 @@
 # Spectralizer
 
-Документация с живой вёрсткой и скриншотами:
+Документация и веб-приложение на GitHub Pages (не эта Wiki):
 
 **https://grishinskeo-ship-it.github.io/Spectralizer/**
 
 - [Обзор](https://grishinskeo-ship-it.github.io/Spectralizer/)
+- [Открыть в браузере](https://grishinskeo-ship-it.github.io/Spectralizer/app/)
 - [Desktop](https://grishinskeo-ship-it.github.io/Spectralizer/desktop.html)
 - [VST](https://grishinskeo-ship-it.github.io/Spectralizer/vst.html)
 - [Установка](https://grishinskeo-ship-it.github.io/Spectralizer/install.html)
