@@ -1,34 +1,13 @@
-# 🎛️ Spectralizer Wiki
+# Spectralizer
 
-Добро пожаловать в документацию **Spectralizer** — анализатора спектра для файлов и для DAW.
+Документация с живой вёрсткой и скриншотами:
 
-## 📦 Что это?
+**https://grishinskeo-ship-it.github.io/Spectralizer/**
 
-| Продукт | Описание |
-|---------|----------|
-| 🖥️ **Desktop** | Electron-приложение: загрузка аудио, спектр, фаза, resynth, VCO |
-| 🔌 **VST3 / CLAP** | Плагин real-time анализа на дорожке (pass-through) |
+- [Обзор](https://grishinskeo-ship-it.github.io/Spectralizer/)
+- [Desktop](https://grishinskeo-ship-it.github.io/Spectralizer/desktop.html)
+- [VST](https://grishinskeo-ship-it.github.io/Spectralizer/vst.html)
+- [Установка](https://grishinskeo-ship-it.github.io/Spectralizer/install.html)
+- [FAQ](https://grishinskeo-ship-it.github.io/Spectralizer/faq.html)
 
-📥 **Скачать:** [Releases](https://github.com/grishinskeo-ship-it/Spectralizer/releases)
-
-## 🗺️ Навигация
-
-- [🖥️ Desktop-приложение](Desktop-приложение)
-- [🔌 VST-плагин](VST-плагин)
-- [⚙️ Установка и сборка](Установка-и-сборка)
-- [⌨️ Горячие клавиши](Горячие-клавиши)
-- [❓ FAQ](FAQ)
-
-## ✨ Скриншоты
-
-### Desktop
-
-![Desktop](https://raw.githubusercontent.com/grishinskeo-ship-it/Spectralizer/main/docs/screenshots/desktop-hero.png)
-
-### VST — вкладка «Анализ»
-
-![VST Analysis](https://raw.githubusercontent.com/grishinskeo-ship-it/Spectralizer/main/docs/screenshots/vst-analysis.png)
-
-## 📄 Лицензия
-
-Проект распространяется под **GPL-3.0-or-later**. VST3 использует GPL-совместимые компоненты NIH-plug.
+Сборки: [Releases v1.0.0](https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0)

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VST — Spectralizer</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
+      <nav>
+        <a href="index.html">Обзор</a>
+        <a href="desktop.html">Desktop</a>
+        <a class="active" href="vst.html">VST</a>
+        <a href="install.html">Установка</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <p class="kicker">NIH-plug · egui</p>
+      <h1>Плагин для DAW</h1>
+      <p class="lead">
+        Real-time спектроскоп на дорожке. Аудио проходит без обработки (analyzer / pass-through).
+        Пока играет транспорт — спектр обновляется; на Stop остаётся последний кадр.
+      </p>
+      <img class="hero-shot" src="screenshots/vst-analysis.png" alt="Spectralizer в FL Studio, вкладка Анализ" />
+
+      <h2>Вкладки</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Анализ</h3>
+          <p>FFT, окна, mono/L/R, log/dB, сетка, пик, гармоники, crosshair с частотой и уровнем.</p>
+        </article>
+        <article class="card">
+          <h3>VCV VCO</h3>
+          <p>Модель partials с того же спектра: fundamental, V/Oct, таблица, копирование CSV.</p>
+        </article>
+      </div>
+
+      <h2>Форматы</h2>
+      <table>
+        <thead><tr><th>Формат</th><th>Где работает</th></tr></thead>
+        <tbody>
+          <tr><td>VST3</td><td>FL Studio, Reaper, Cubase, Ableton, Studio One…</td></tr>
+          <tr><td>CLAP</td><td>Bitwig, Reaper 7+ и хосты с CLAP</td></tr>
+        </tbody>
+      </table>
+      <p>Подробная установка — на странице <a href="install.html">Установка</a>.</p>
+    </main>
+    <footer>GPL-3.0-or-later из‑за VST3 bindings NIH-plug</footer>
+  </body>
+</html>

@@ -1,81 +1,61 @@
 # Spectralizer
 
-**Spectralizer** — анализатор спектра для аудио: десктопное приложение (Electron) и **VST3/CLAP**-плагин для DAW.
+Анализатор частотного спектра: **десктоп** для файлов и **VST3/CLAP** для DAW.
 
-| Компонент | Назначение |
-|-----------|------------|
-| **Desktop** | Загрузка файлов, waveform, спектр, фаза, resynth, модель VCO |
-| **VST** | Real-time спектроскоп на дорожке DAW (pass-through) + вкладка VCO |
+Нужен, когда надо не «на глаз», а по FFT: из чего состоит сэмпл, где fundamental, какие обертона, что происходит на дорожке во время Play.
 
-📖 Подробная документация: [Wiki на GitHub](https://github.com/grishinskeo-ship-it/Spectralizer/wiki)  
-📦 Готовые сборки: [Releases](https://github.com/grishinskeo-ship-it/Spectralizer/releases)
+| | Desktop | VST / CLAP |
+|---|---|---|
+| **Задача** | Разобрать загруженный файл | Смотреть спектр входа DAW |
+| **Кому** | Саунд-дизайн, разбор тембра, VCV Rack, учёба DSP | Сведение, проверка дорожки, freeze на Stop |
+| **Звук** | Воспроизведение файла | Pass-through, сигнал не меняется |
 
-![Spectralizer](docs/screenshots/desktop-hero.png)
+📦 [Скачать v1.0.0](https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0) · 📖 [Документация](https://grishinskeo-ship-it.github.io/Spectralizer/)
 
-## Возможности
+## Desktop
 
-### Desktop (React + Electron)
+Четыре рабочих области одного окна.
 
-- Загрузка аудио (MP3 и другие форматы через Web Audio)
-- Timeline, waveform, воспроизведение и loop
-- Вкладки: **Анализ**, **Фаза**, **Resynth**, **VCV VCO**
-- FFT 256…8192, окна (Rect / Hanning / Hamming / Blackman)
-- Log/linear частота, dB/linear амплитуда, zoom спектра
+**Анализ** — magnitude spectrum, настройки FFT, waveform и loop.
 
-### VST / CLAP (Rust + NIH-plug)
+![Анализ](docs/screenshots/desktop-analysis.png)
 
-- Анализ входа DAW в реальном времени (звук не меняется)
-- Вкладки **Анализ** и **VCV VCO**
-- Freeze спектра при Stop в транспорте
-- Подробности: [vst/README.md](vst/README.md)
+**VCV VCO** — fundamental, V/Oct, нота, таблица partials и CSV для Rack.
 
-## Быстрый старт
+![VCV VCO](docs/screenshots/desktop-vco.png)
 
-### Веб / разработка
+**Фаза** — фазовый спектр того же кадра.
+
+![Фаза](docs/screenshots/desktop-phase.png)
+
+**Resynth** — overlap-add iFFT от текущей позиции, можно прослушать приближение.
+
+![Resynth](docs/screenshots/desktop-resynth.png)
+
+Поддерживаемые файлы: MP3, WAV, FLAC, OGG. Подробности вкладок и клавиш — на странице [Desktop](https://grishinskeo-ship-it.github.io/Spectralizer/desktop.html).
 
 ```bash
 npm install
-npm run dev
+npm run dev          # браузер
+npm run pack:portable  # Windows .exe
 ```
 
-### Desktop (.exe)
+## VST
 
-> Храните проект вне OneDrive — иначе `electron-builder` может падать с `EPERM`.
+Плагин в FL Studio (вкладка «Анализ»): спектр живой, tooltip с частотой и dB.
 
-```bash
-npm run pack          # установщик + portable
-npm run pack:portable # только portable
-```
+![VST](docs/screenshots/vst-analysis.png)
 
-Артефакты: `release/` (не коммитятся в git).
+- **VST3** — FL Studio, Reaper, Cubase, Ableton…
+- **CLAP** — Bitwig, Reaper 7+
 
-### VST
+В FL Studio кладите бандл только в `C:\Program Files\Common Files\VST3\`, затем rescan. Инструкция: [установка](https://grishinskeo-ship-it.github.io/Spectralizer/install.html).
 
 ```powershell
 cd vst
 cargo xtask bundle spectralizer-vst --release
 ```
 
-Бандл: `vst/target/bundled/spectralizer-vst.vst3`
-
 ## Стек
 
-| Часть | Технологии |
-|-------|------------|
-| UI | React 19, TypeScript, Vite 8, Canvas |
-| Desktop | Electron, electron-builder |
-| DSP (web) | fft.js, Web Audio API |
-| Plugin | NIH-plug, egui, realfft |
-
-## Лицензия
-
-**GPL-3.0-or-later** — см. [LICENSE](LICENSE). VST3-сборка использует GPL-совместимые bindings NIH-plug.
-
-## Структура репозитория
-
-```
-├── src/           # React-приложение
-├── electron/      # Оболочка Electron
-├── vst/           # Плагин VST3/CLAP
-└── docs/          # Скриншоты и материалы для Wiki
-```
+React 19 + Vite + Electron · Rust + NIH-plug + egui + realfft · лицензия **GPL-3.0-or-later**.

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spectralizer — анализатор спектра</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
+      <nav>
+        <a class="active" href="index.html">Обзор</a>
+        <a href="desktop.html">Desktop</a>
+        <a href="vst.html">VST</a>
+        <a href="install.html">Установка</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </header>
+
+    <main class="wrap">
+      <p class="kicker">Desktop + VST3 / CLAP</p>
+      <h1>Смотрите, из чего состоит звук</h1>
+      <p class="lead">
+        Spectralizer — анализатор частотного спектра. Десктопное приложение разбирает
+        загруженный файл по гармоникам, фазе и resynth. Плагин в DAW показывает спектр
+        дорожки в реальном времени и не трогает звук.
+      </p>
+      <div class="actions">
+        <a class="btn" href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">Скачать v1.0.0</a>
+        <a class="btn ghost" href="install.html">Как установить</a>
+        <a class="btn ghost" href="https://github.com/grishinskeo-ship-it/Spectralizer">Исходники</a>
+      </div>
+
+      <img class="hero-shot" src="screenshots/desktop-analysis.png" alt="Вкладка Анализ: спектр, настройки FFT и waveform" />
+
+      <h2>Кому это нужно</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Саунд-дизайнерам</h3>
+          <p>Увидеть fundamental, обертона и пик, снять модель для VCV Rack / additive и понять, чем тембр «толстый».</p>
+        </article>
+        <article class="card">
+          <h3>Продюсерам в DAW</h3>
+          <p>Повесить VST на канал или master: спектр живёт вместе с транспортом, на Stop замирает последний кадр.</p>
+        </article>
+        <article class="card">
+          <h3>Тем, кто учит DSP</h3>
+          <p>FFT, окна, log/dB шкалы, фаза и экспериментальный iFFT-resynth — без MATLAB и без облака.</p>
+        </article>
+      </div>
+
+      <h2>Два продукта в одном репозитории</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Что</th>
+            <th>Для чего</th>
+            <th>Кому ставить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="desktop.html">Desktop</a></td>
+            <td>Файл → спектр, фаза, resynth, таблица VCO</td>
+            <td>Работа вне DAW, разбор сэмпла, экспорт CSV</td>
+          </tr>
+          <tr>
+            <td><a href="vst.html">VST3 / CLAP</a></td>
+            <td>Спектр входа DAW, pass-through, вкладка VCO</td>
+            <td>FL Studio, Reaper, Bitwig и другие хосты</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer>GPL-3.0-or-later · v1.0.0 · <a href="https://github.com/grishinskeo-ship-it/Spectralizer">GitHub</a></footer>
+  </body>
+</html>
