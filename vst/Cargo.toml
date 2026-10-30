@@ -1,0 +1,24 @@
+[workspace]
+members = [".", "xtask"]
+resolver = "2"
+
+[package]
+name = "spectralizer-vst"
+version = "1.0.0"
+edition = "2021"
+authors = ["Spectralizer"]
+license = "GPL-3.0-or-later"
+description = "Real-time spectrum analyzer and VCO harmonic modeler (VST3/CLAP)"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git", features = ["assert_process_allocs"] }
+nih_plug_egui = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+realfft = "3.0"
+parking_lot = "0.12"
+
+[profile.release]
+lto = "thin"
+strip = "symbols"
