@@ -1,6 +1,6 @@
 # Spectralizer — full notes for language models
 
-Source site: https://grishinskeo-ship-it.github.io/Spectralizer/
+Source site: https://grishinskeo-ship-it.github.io/
 GitHub: https://github.com/grishinskeo-ship-it/Spectralizer
 License: GPL-3.0-or-later
 Version: 1.0.0
@@ -11,10 +11,10 @@ Version: 1.0.0
 
 Анализатор частотного спектра. Три оболочки одной идеи: веб, Windows desktop, VST3/CLAP.
 
-Сайт: https://grishinskeo-ship-it.github.io/Spectralizer/
+Сайт: https://grishinskeo-ship-it.github.io/
 Репозиторий: https://github.com/grishinskeo-ship-it/Spectralizer
 Сборки: https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0
-Веб-приложение: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+Веб-приложение: https://grishinskeo-ship-it.github.io/app/
 
 Нужен, когда надо не «на глаз», а по FFT: из чего состоит сэмпл, где fundamental, какие обертона, что происходит на дорожке во время Play.
 
@@ -22,7 +22,7 @@ Version: 1.0.0
 
 | Что | Для чего | Кому |
 |---|---|---|
-| Веб https://grishinskeo-ship-it.github.io/Spectralizer/app/ | Файл → спектр в браузере | Попробовать сразу |
+| Веб https://grishinskeo-ship-it.github.io/app/ | Файл → спектр в браузере | Попробовать сразу |
 | Desktop | То же офлайн на Windows | Portable .exe |
 | VST3 / CLAP | Спектр входа DAW, pass-through | FL Studio, Reaper, Bitwig |
 
@@ -30,7 +30,7 @@ Version: 1.0.0
 
 # Веб
 
-Адрес: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+Адрес: https://grishinskeo-ship-it.github.io/app/
 
 Тот же анализатор, что Desktop: React + Web Audio + fft.js. Файл выбирается локально и декодируется в браузере. На сервер аудио не уходит.
 

@@ -16,4 +16,4 @@
 
 Копируйте `spectralizer-vst.vst3` только в `C:\Program Files\Common Files\VST3\`, затем F10 → Manage plugins → Verify + rescan.
 
-Подробности: https://grishinskeo-ship-it.github.io/Spectralizer/install.html
+Подробности: https://grishinskeo-ship-it.github.io/install.html

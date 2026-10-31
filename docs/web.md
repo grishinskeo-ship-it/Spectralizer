@@ -1,6 +1,6 @@
 # Spectralizer в браузере
 
-Адрес: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+Адрес: https://grishinskeo-ship-it.github.io/app/
 
 Это тот же анализатор, что Desktop: React + Web Audio + fft.js. Файл выбирается локально (`<input type="file">` или drag-and-drop) и декодируется в браузере. На сервер аудио не уходит.
 
@@ -16,5 +16,5 @@
 
 Плагин VST3/CLAP в DAW. Живой вход хоста. Для этого скачайте сборку с GitHub Releases.
 
-Desktop: https://grishinskeo-ship-it.github.io/Spectralizer/desktop.html
-VST: https://grishinskeo-ship-it.github.io/Spectralizer/vst.html
+Desktop: https://grishinskeo-ship-it.github.io/desktop.html
+VST: https://grishinskeo-ship-it.github.io/vst.html

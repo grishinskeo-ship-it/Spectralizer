@@ -1,11 +1,11 @@
 # Установка Spectralizer
 
-Документация: https://grishinskeo-ship-it.github.io/Spectralizer/
+Документация: https://grishinskeo-ship-it.github.io/
 Не используйте адрес `github.io/wiki/…` — такой страницы нет.
 
 ## Что скачать
 
-- Веб, без установки: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+- Веб, без установки: https://grishinskeo-ship-it.github.io/app/
 - Desktop Windows: https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/Spectralizer-1.0.0-portable.exe
 - VST3: https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/spectralizer-vst-v1.0.0-windows-vst3.zip
 - CLAP: https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/spectralizer-vst-v1.0.0-windows-clap.zip

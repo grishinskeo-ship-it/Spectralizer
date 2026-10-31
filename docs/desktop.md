@@ -2,7 +2,7 @@
 
 Windows portable: https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/Spectralizer-1.0.0-portable.exe
 
-Тот же анализатор доступен в браузере: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+Тот же анализатор доступен в браузере: https://grishinskeo-ship-it.github.io/app/
 
 Откройте MP3, WAV, FLAC или OGG. Спектр считается для выбранного момента на waveform и обновляется при воспроизведении. Обработка локальная.
 

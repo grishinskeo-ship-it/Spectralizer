@@ -2,11 +2,11 @@
 
 ## Веб, Desktop или VST?
 
-Попробовать анализатор файла — [веб](https://grishinskeo-ship-it.github.io/Spectralizer/app/). Офлайн на Windows — Desktop. Спектр в миксе во время Play — VST3 или CLAP.
+Попробовать анализатор файла — [веб](https://grishinskeo-ship-it.github.io/app/). Офлайн на Windows — Desktop. Спектр в миксе во время Play — VST3 или CLAP.
 
 ## Где документация?
 
-https://grishinskeo-ship-it.github.io/Spectralizer/
+https://grishinskeo-ship-it.github.io/
 
 Вкладка Wiki у репозитория отключена. Адрес `github.io/wiki/…` не существует.
 

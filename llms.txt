@@ -2,10 +2,10 @@
 
 > FFT spectrum analyzer: browser app, Windows desktop, and VST3/CLAP plugin.
 
-- Site: https://grishinskeo-ship-it.github.io/Spectralizer/
-- Web app: https://grishinskeo-ship-it.github.io/Spectralizer/app/
-- Docs index for models: https://grishinskeo-ship-it.github.io/Spectralizer/llms.txt
-- Full dump: https://grishinskeo-ship-it.github.io/Spectralizer/llms-full.txt
+- Site: https://grishinskeo-ship-it.github.io/
+- Web app: https://grishinskeo-ship-it.github.io/app/
+- Docs index for models: https://grishinskeo-ship-it.github.io/llms.txt
+- Full dump: https://grishinskeo-ship-it.github.io/llms-full.txt
 - Releases: https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0
 - License: GPL-3.0-or-later
 

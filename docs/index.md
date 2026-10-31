@@ -2,10 +2,10 @@
 
 Анализатор частотного спектра. Три оболочки одной идеи: **веб**, **Windows desktop**, **VST3/CLAP**.
 
-Сайт: https://grishinskeo-ship-it.github.io/Spectralizer/
+Сайт: https://grishinskeo-ship-it.github.io/
 Репозиторий: https://github.com/grishinskeo-ship-it/Spectralizer
 Сборки: https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0
-Веб-приложение: https://grishinskeo-ship-it.github.io/Spectralizer/app/
+Веб-приложение: https://grishinskeo-ship-it.github.io/app/
 
 ## Зачем
 
@@ -21,7 +21,7 @@
 
 | Что | Для чего | Кому |
 |---|---|---|
-| [Веб](https://grishinskeo-ship-it.github.io/Spectralizer/app/) | Файл → спектр в браузере | Попробовать сразу |
+| [Веб](https://grishinskeo-ship-it.github.io/app/) | Файл → спектр в браузере | Попробовать сразу |
 | [Desktop](desktop.md) | То же офлайн на Windows | Portable .exe |
 | [VST3 / CLAP](vst.md) | Спектр входа DAW, pass-through | FL Studio, Reaper, Bitwig |
 

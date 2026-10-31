@@ -3,7 +3,7 @@ import path from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const SITE = 'https://grishinskeo-ship-it.github.io/Spectralizer'
+const SITE = 'https://grishinskeo-ship-it.github.io'
 const APP_URL = `${SITE}/app/`
 
 const METRIKA = `
@@ -80,7 +80,7 @@ export default defineConfig(({ mode }) => {
   const outDir = isWeb ? 'docs/app' : 'dist'
 
   return {
-    base: isWeb ? '/Spectralizer/app/' : './',
+    base: './',
     plugins: [
       react(),
       ...(isWeb ? [pagesHtml(), dropDemoWav(outDir)] : []),

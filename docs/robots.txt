@@ -1,6 +1,4 @@
-# Project Pages live at /Spectralizer/. Host-wide robots.txt is
-# https://grishinskeo-ship-it.github.io/robots.txt (user/org site).
-# This file still helps crawlers that fetch the project path.
+# Served at the host root: https://grishinskeo-ship-it.github.io/robots.txt
 
 User-agent: *
 Allow: /
@@ -50,4 +48,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://grishinskeo-ship-it.github.io/Spectralizer/sitemap.xml
+Sitemap: https://grishinskeo-ship-it.github.io/sitemap.xml

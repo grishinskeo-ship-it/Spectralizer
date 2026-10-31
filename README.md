@@ -1,6 +1,6 @@
 # Spectralizer
 
-📦 [Скачать v1.0.0](https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0) · 📖 [Документация](https://grishinskeo-ship-it.github.io/Spectralizer/) · 🌐 [Открыть в браузере](https://grishinskeo-ship-it.github.io/Spectralizer/app/)
+📦 [Скачать v1.0.0](https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0) · 📖 [Документация](https://grishinskeo-ship-it.github.io/) · 🌐 [Открыть в браузере](https://grishinskeo-ship-it.github.io/app/)
 
 Анализатор частотного спектра: **веб** для быстрого разбора файла, **десктоп** офлайн и **VST3/CLAP** для DAW.
 
@@ -14,7 +14,7 @@
 
 ## Desktop
 
-Четыре рабочих области одного окна. В браузере — [тот же интерфейс](https://grishinskeo-ship-it.github.io/Spectralizer/app/).
+Четыре рабочих области одного окна. В браузере — [тот же интерфейс](https://grishinskeo-ship-it.github.io/app/).
 
 **Анализ** — magnitude spectrum, настройки FFT, waveform и loop.
 
@@ -32,7 +32,7 @@
 
 ![Resynth](docs/screenshots/desktop-resynth.png)
 
-Поддерживаемые файлы: MP3, WAV, FLAC, OGG. Подробности вкладок и клавиш — на странице [Desktop](https://grishinskeo-ship-it.github.io/Spectralizer/desktop.html).
+Поддерживаемые файлы: MP3, WAV, FLAC, OGG. Подробности вкладок и клавиш — на странице [Desktop](https://grishinskeo-ship-it.github.io/desktop.html).
 
 ```bash
 npm install
@@ -50,7 +50,7 @@ npm run pack:portable  # Windows .exe
 - **VST3** — FL Studio, Reaper, Cubase, Ableton…
 - **CLAP** — Bitwig, Reaper 7+
 
-В FL Studio кладите бандл только в `C:\Program Files\Common Files\VST3\`, затем rescan. Инструкция: [установка](https://grishinskeo-ship-it.github.io/Spectralizer/install.html).
+В FL Studio кладите бандл только в `C:\Program Files\Common Files\VST3\`, затем rescan. Инструкция: [установка](https://grishinskeo-ship-it.github.io/install.html).
 
 ```powershell
 cd vst
