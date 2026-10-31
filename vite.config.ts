@@ -26,6 +26,8 @@ function pagesHtml(): Plugin {
     name: 'pages-html',
     transformIndexHtml(html) {
       const head = `
+    <meta name="yandex-verification" content="a4fe7b2f168d7403" />
+    <meta name="google-site-verification" content="DTZqxKLN3vRc_hC3fdIy7nVg0veWLYbKqV0LoDSAM-g" />
     <meta name="description" content="Spectralizer в браузере: FFT-анализатор спектра. Откройте MP3, WAV, FLAC или OGG — гармоники, фаза, resynth, модель VCO. Без установки." />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <link rel="canonical" href="${APP_URL}" />
