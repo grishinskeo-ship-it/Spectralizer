@@ -1,5 +1,6 @@
 mod dsp;
 mod editor;
+mod i18n;
 mod params;
 mod theme;
 

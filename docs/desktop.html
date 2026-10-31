@@ -24,73 +24,81 @@
       {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Spectralizer Desktop","applicationCategory":"MultimediaApplication","operatingSystem":"Windows","softwareVersion":"1.0.0","url":"https://grishinskeo-ship-it.github.io/desktop.html","downloadUrl":"https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/Spectralizer-1.0.0-portable.exe","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isAccessibleForFree":true}
     </script>
   </head>
-  <body>
+  <body data-title-key="desktop.title" data-desc-key="desktop.desc">
     <header class="top">
       <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
+      <div class="top-end">
       <nav>
-        <a href="index.html">Обзор</a>
-        <a href="app/">Веб</a>
+        <a href="index.html" data-i18n="nav.overview">Обзор</a>
+        <a href="app/" data-i18n="nav.web">Веб</a>
         <a class="active" href="desktop.html">Desktop</a>
         <a href="vst.html">VST</a>
-        <a href="install.html">Установка</a>
+        <a href="install.html" data-i18n="nav.install">Установка</a>
         <a href="faq.html">FAQ</a>
       </nav>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-set-lang="en">EN</button>
+        <button type="button" data-set-lang="de">DE</button>
+        <button type="button" data-set-lang="ru">RU</button>
+      </div>
+      </div>
     </header>
     <main class="wrap">
-      <p class="kicker">Electron · тот же движок, что в вебе</p>
-      <h1>Desktop-приложение</h1>
-      <p class="lead">
+      <p class="kicker" data-i18n="desktop.kicker">Electron · тот же движок, что в вебе</p>
+      <h1 data-i18n="desktop.h1">Desktop-приложение</h1>
+      <p class="lead" data-i18n="desktop.lead">
         Откройте MP3, WAV, FLAC или OGG. Спектр считается для выбранного момента на waveform
         и обновляется при воспроизведении. Звук никуда не уходит — всё локально.
-        Та же логика доступна <a href="app/">в браузере</a>, без .exe.
+        Та же логика доступна в браузере, без .exe.
       </p>
       <div class="actions">
-        <a class="btn" href="app/">Открыть в браузере</a>
+        <a class="btn" href="app/" data-i18n="desktop.openWeb">Открыть в браузере</a>
         <a class="btn ghost" href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/download/v1.0.0/Spectralizer-1.0.0-portable.exe">Portable .exe</a>
       </div>
 
       <section class="shot-block">
-        <h2>Анализ</h2>
-        <p class="caption">Magnitude spectrum, info-bar, zoom мышью, waveform и loop.</p>
-        <img class="hero-shot" src="screenshots/desktop-analysis.png" alt="Вкладка Анализ" />
+        <h2 data-i18n="desktop.tabAnalysis">Анализ</h2>
+        <p class="caption" data-i18n="desktop.analysisCap">Magnitude spectrum, info-bar, zoom мышью, waveform и loop.</p>
+        <img class="hero-shot" src="screenshots/desktop-analysis.png" alt="Вкладка Анализ" data-i18n-attr="alt:desktop.analysisAlt" />
       </section>
 
       <section class="shot-block">
         <h2>VCV VCO</h2>
-        <p class="caption">Fundamental, V/Oct, нота и таблица partials с подсказками для Rack. CSV копируется в буфер.</p>
-        <img class="hero-shot" src="screenshots/desktop-vco.png" alt="Вкладка VCV VCO" />
+        <p class="caption" data-i18n="desktop.vcoCap">Fundamental, V/Oct, нота и таблица partials с подсказками для Rack. CSV копируется в буфер.</p>
+        <img class="hero-shot" src="screenshots/desktop-vco.png" alt="Вкладка VCV VCO" data-i18n-attr="alt:desktop.vcoAlt" />
       </section>
 
       <section class="shot-block">
-        <h2>Фаза</h2>
-        <p class="caption">Фазовый спектр того же кадра FFT — удобно смотреть разрывы и окраску.</p>
-        <img class="hero-shot" src="screenshots/desktop-phase.png" alt="Вкладка Фаза" />
+        <h2 data-i18n="desktop.tabPhase">Фаза</h2>
+        <p class="caption" data-i18n="desktop.phaseCap">Фазовый спектр того же кадра FFT — удобно смотреть разрывы и окраску.</p>
+        <img class="hero-shot" src="screenshots/desktop-phase.png" alt="Вкладка Фаза" data-i18n-attr="alt:desktop.phaseAlt" />
       </section>
 
       <section class="shot-block">
         <h2>Resynth</h2>
-        <p class="caption">Экспериментальный overlap-add iFFT от текущей позиции. Можно прослушать приближение кадра.</p>
-        <img class="hero-shot" src="screenshots/desktop-resynth.png" alt="Вкладка Resynth" />
+        <p class="caption" data-i18n="desktop.resynthCap">Экспериментальный overlap-add iFFT от текущей позиции. Можно прослушать приближение кадра.</p>
+        <img class="hero-shot" src="screenshots/desktop-resynth.png" alt="Вкладка Resynth" data-i18n-attr="alt:desktop.resynthAlt" />
       </section>
 
-      <h2>Настройки</h2>
-      <p>FFT 256…8192, окна Rectangular / Hanning / Hamming / Blackman, канал mono/L/R, log или linear частота, dB или linear амплитуда, сглаживание, сетка, пик, гармоники.</p>
+      <h2 data-i18n="desktop.settings">Настройки</h2>
+      <p data-i18n="desktop.settingsP">FFT 256…8192, окна Rectangular / Hanning / Hamming / Blackman, канал mono/L/R, log или linear частота, dB или linear амплитуда, сглаживание, сетка, пик, гармоники.</p>
 
-      <h2>Клавиши</h2>
+      <h2 data-i18n="desktop.keys">Клавиши</h2>
       <table>
-        <thead><tr><th>Клавиша</th><th>Действие</th></tr></thead>
+        <thead><tr><th data-i18n="desktop.key">Клавиша</th><th data-i18n="desktop.action">Действие</th></tr></thead>
         <tbody>
           <tr><td>Space</td><td>Play / Pause</td></tr>
-          <tr><td>← / →</td><td>Шаг по timeline (Shift — крупнее)</td></tr>
-          <tr><td>1 / 2 / 3 / 4</td><td>Анализ, VCO, Фаза, Resynth</td></tr>
-          <tr><td>Ctrl+O</td><td>Открыть файл</td></tr>
-          <tr><td>L / Shift+L</td><td>Loop / сброс loop</td></tr>
+          <tr><td>← / →</td><td data-i18n="desktop.k1">Шаг по timeline (Shift — крупнее)</td></tr>
+          <tr><td>1 / 2 / 3 / 4</td><td data-i18n="desktop.k2">Анализ, VCO, Фаза, Resynth</td></tr>
+          <tr><td>Ctrl+O</td><td data-i18n="desktop.k3">Открыть файл</td></tr>
+          <tr><td>L / Shift+L</td><td data-i18n="desktop.k4">Loop / сброс loop</td></tr>
           <tr><td>R</td><td>Resynth</td></tr>
-          <tr><td>Esc, +/−</td><td>Сброс zoom / масштаб</td></tr>
+          <tr><td>Esc, +/−</td><td data-i18n="desktop.k5">Сброс zoom / масштаб</td></tr>
         </tbody>
       </table>
     </main>
-    <footer>GPL-3.0-or-later · <a href="index.html">На главную</a></footer>
+    <footer>GPL-3.0-or-later · <a href="index.html" data-i18n="nav.home">На главную</a></footer>
+    <script src="assets/i18n.js"></script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){

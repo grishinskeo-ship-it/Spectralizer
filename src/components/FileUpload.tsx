@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useI18n } from '../i18n/I18nContext';
 import { AUDIO_ACCEPT } from '../types';
 
 interface FileUploadProps {
@@ -10,6 +11,7 @@ interface FileUploadProps {
 }
 
 export function FileUpload({ onFileSelect, fileName, loading, error, openTrigger = 0 }: FileUploadProps) {
+  const { t } = useI18n();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export function FileUpload({ onFileSelect, fileName, loading, error, openTrigger
         disabled={loading}
         onClick={() => inputRef.current?.click()}
       >
-        {loading ? 'Загрузка…' : 'Открыть аудио'}
+        {loading ? t('loading') : t('openAudio')}
       </button>
       {fileName && <span className="file-name">{fileName}</span>}
       {error && <span className="file-error">{error}</span>}

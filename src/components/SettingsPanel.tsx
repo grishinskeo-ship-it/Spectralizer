@@ -1,6 +1,8 @@
+import { windowLabel } from '../audio/windows';
+import { hopKey } from '../i18n/strings';
+import { useI18n } from '../i18n/I18nContext';
 import type { AnalysisSettings, LoopRegion, WindowType } from '../types';
 import { FFT_SIZES, HARMONIC_COUNT_OPTIONS, PLAYBACK_FPS_OPTIONS, RESYNTH_FRAME_COUNT_OPTIONS, RESYNTH_HOP_RATIO_OPTIONS } from '../types';
-import { windowLabel } from '../audio/windows';
 
 interface SettingsPanelProps {
   settings: AnalysisSettings;
@@ -13,16 +15,17 @@ interface SettingsPanelProps {
 const WINDOW_TYPES: WindowType[] = ['rectangular', 'hanning', 'hamming', 'blackman'];
 
 export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClearLoop }: SettingsPanelProps) {
+  const { t } = useI18n();
   const update = <K extends keyof AnalysisSettings>(key: K, value: AnalysisSettings[K]) => {
     onChange({ ...settings, [key]: value });
   };
 
   return (
     <aside className="settings-panel">
-      <h2>Настройки анализа</h2>
+      <h2>{t('settingsAnalysis')}</h2>
 
       <label className="setting">
-        <span>Размер FFT</span>
+        <span>{t('fftSize')}</span>
         <select
           value={settings.fftSize}
           disabled={disabled}
@@ -35,7 +38,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
       </label>
 
       <label className="setting">
-        <span>Оконная функция</span>
+        <span>{t('window')}</span>
         <select
           value={settings.windowType}
           disabled={disabled}
@@ -48,46 +51,46 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
       </label>
 
       <label className="setting">
-        <span>Канал</span>
+        <span>{t('channel')}</span>
         <select
           value={settings.channel}
           disabled={disabled}
           onChange={(event) => update('channel', event.target.value as AnalysisSettings['channel'])}
         >
-          <option value="mono">Mono (среднее)</option>
-          <option value="left">Левый</option>
-          <option value="right">Правый</option>
+          <option value="mono">{t('channelMono')}</option>
+          <option value="left">{t('channelLeft')}</option>
+          <option value="right">{t('channelRight')}</option>
         </select>
       </label>
 
       <label className="setting">
-        <span>Шкала частот</span>
+        <span>{t('freqScale')}</span>
         <select
           value={settings.frequencyScale}
           disabled={disabled}
           onChange={(event) => update('frequencyScale', event.target.value as AnalysisSettings['frequencyScale'])}
         >
-          <option value="log">Логарифмическая</option>
-          <option value="linear">Линейная</option>
+          <option value="log">{t('freqLog')}</option>
+          <option value="linear">{t('freqLinear')}</option>
         </select>
       </label>
 
       <label className="setting">
-        <span>Шкала амплитуды</span>
+        <span>{t('magScale')}</span>
         <select
           value={settings.magnitudeScale}
           disabled={disabled}
           onChange={(event) => update('magnitudeScale', event.target.value as AnalysisSettings['magnitudeScale'])}
         >
-          <option value="db">Decibel (dB)</option>
-          <option value="linear">Линейная</option>
+          <option value="db">{t('magDb')}</option>
+          <option value="linear">{t('magLinear')}</option>
         </select>
       </label>
 
       {settings.magnitudeScale === 'db' && (
         <>
           <label className="setting">
-            <span>Мин. dB ({settings.dbMin})</span>
+            <span>{t('dbMin', { value: settings.dbMin })}</span>
             <input
               type="range"
               min={-120}
@@ -100,7 +103,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           </label>
 
           <label className="setting">
-            <span>Макс. dB ({settings.dbMax})</span>
+            <span>{t('dbMax', { value: settings.dbMax })}</span>
             <input
               type="range"
               min={-40}
@@ -115,7 +118,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
       )}
 
       <label className="setting">
-        <span>Сглаживание ({settings.smoothing})</span>
+        <span>{t('smoothing', { value: settings.smoothing })}</span>
         <input
           type="range"
           min={0}
@@ -134,7 +137,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           disabled={disabled}
           onChange={(event) => update('showGrid', event.target.checked)}
         />
-        <span>Показать сетку</span>
+        <span>{t('showGrid')}</span>
       </label>
 
       <label className="setting checkbox">
@@ -144,7 +147,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           disabled={disabled}
           onChange={(event) => update('showPeaks', event.target.checked)}
         />
-        <span>Маркер пиковой частоты</span>
+        <span>{t('showPeak')}</span>
       </label>
 
       <label className="setting checkbox">
@@ -154,12 +157,12 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           disabled={disabled}
           onChange={(event) => update('showHarmonics', event.target.checked)}
         />
-        <span>Показать гармоники</span>
+        <span>{t('showHarmonics')}</span>
       </label>
 
       {settings.showHarmonics && (
         <label className="setting">
-          <span>Кол-во гармоник ({settings.harmonicCount})</span>
+          <span>{t('harmonicCount', { value: settings.harmonicCount })}</span>
           <select
             value={settings.harmonicCount}
             disabled={disabled}
@@ -172,10 +175,10 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
         </label>
       )}
 
-      <h2 className="settings-section">Resynth</h2>
+      <h2 className="settings-section">{t('settingsResynth')}</h2>
 
       <label className="setting">
-        <span>Кол-во кадров ({settings.resynthFrameCount})</span>
+        <span>{t('frameCount', { value: settings.resynthFrameCount })}</span>
         <select
           value={settings.resynthFrameCount}
           disabled={disabled}
@@ -188,19 +191,19 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
       </label>
 
       <label className="setting">
-        <span>Шаг между кадрами</span>
+        <span>{t('hop')}</span>
         <select
           value={settings.resynthHopRatio}
           disabled={disabled}
           onChange={(event) => update('resynthHopRatio', Number(event.target.value))}
         >
-          {RESYNTH_HOP_RATIO_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>{option.label}</option>
+          {RESYNTH_HOP_RATIO_OPTIONS.map((value) => (
+            <option key={value} value={value}>{t(hopKey(value))}</option>
           ))}
         </select>
       </label>
 
-      <h2 className="settings-section">Воспроизведение</h2>
+      <h2 className="settings-section">{t('settingsPlayback')}</h2>
 
       <label className="setting checkbox">
         <input
@@ -209,7 +212,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           disabled={disabled || !loopRegion}
           onChange={(event) => update('loopEnabled', event.target.checked)}
         />
-        <span>Loop {loopRegion ? '' : '(сначала выделите регион)'}</span>
+        <span>{loopRegion ? t('loop') : t('loopNeedRegion')}</span>
       </label>
       {loopRegion && (
         <button
@@ -218,12 +221,12 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           disabled={disabled}
           onClick={onClearLoop}
         >
-          Сбросить loop-регион
+          {t('clearLoopRegion')}
         </button>
       )}
 
       <label className="setting">
-        <span>Частота обновления графиков ({settings.playbackFps} FPS)</span>
+        <span>{t('playbackFps', { value: settings.playbackFps })}</span>
         <select
           value={settings.playbackFps}
           disabled={disabled}
@@ -234,9 +237,7 @@ export function SettingsPanel({ settings, onChange, disabled, loopRegion, onClea
           ))}
         </select>
       </label>
-      <p className="setting-hint">
-        Waveform ~60 FPS. Спектр — с выбранным FPS. Hotkeys: Space, ←/→, L, Shift+L, R, Esc, +/-, 1/2/3/4, Ctrl+O.
-      </p>
+      <p className="setting-hint">{t('settingsHint')}</p>
     </aside>
   );
 }

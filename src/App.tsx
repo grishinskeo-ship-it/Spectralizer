@@ -16,13 +16,16 @@ import { adjustFrequencyZoom } from './components/spectrumChartUtils';
 import { adjustSampleZoom } from './components/resynthChartUtils';
 import type { FrequencyZoom } from './components/spectrumChartUtils';
 import type { SampleZoom } from './components/resynthChartUtils';
+import { LanguageSwitch } from './components/LanguageSwitch';
 import { useHotkeys } from './hooks/useHotkeys';
+import { useI18n } from './i18n/I18nContext';
 import { saveRecentFile } from './storage/recentFiles';
 import { DEFAULT_SETTINGS } from './types';
 import type { AnalysisSettings, AppTab, LoadedAudio, LoopRegion, SpectrumResult } from './types';
 import './App.css';
 
 function App() {
+  const { t } = useI18n();
   const [audio, setAudio] = useState<LoadedAudio | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [settings, setSettings] = useState<AnalysisSettings>(DEFAULT_SETTINGS);
@@ -261,7 +264,7 @@ function App() {
 
   const loadFile = useCallback(async (file: File) => {
     if (!isSupportedAudioFile(file)) {
-      setError('Формат не поддерживается. Используйте MP3, WAV, FLAC или OGG.');
+      setError(t('errorUnsupported'));
       return;
     }
 
@@ -283,7 +286,7 @@ function App() {
       setCurrentTime(0);
       setSpectrum(analyzerRef.current.analyze(0));
     } catch {
-      setError('Не удалось декодировать файл. Проверьте формат и целостность.');
+      setError(t('errorDecode'));
       setAudio(null);
       setFrequencyZoom(null);
       analyzerRef.current = null;
@@ -291,7 +294,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-  }, [stopPlayback]);
+  }, [stopPlayback, t]);
 
   useEffect(() => {
     if (!audio || !analyzerRef.current) {
@@ -401,15 +404,15 @@ function App() {
     }
 
     return [
-      { label: 'Sample rate', value: `${audio.sampleRate} Hz` },
-      { label: 'FFT bins', value: `${settings.fftSize / 2}` },
-      { label: 'Разрешение', value: `${(audio.sampleRate / settings.fftSize).toFixed(2)} Hz/bin` },
-      { label: 'Обновление', value: isPlaying ? `${settings.playbackFps} FPS` : 'по запросу' },
-      { label: 'Пик', value: spectrum.peakFrequency >= 1000
+      { label: t('infoSampleRate'), value: `${audio.sampleRate} Hz` },
+      { label: t('infoBins'), value: `${settings.fftSize / 2}` },
+      { label: t('infoResolution'), value: `${(audio.sampleRate / settings.fftSize).toFixed(2)} Hz/bin` },
+      { label: t('infoRefresh'), value: isPlaying ? t('infoRefreshLive', { value: settings.playbackFps }) : t('infoRefreshDemand') },
+      { label: t('infoPeak'), value: spectrum.peakFrequency >= 1000
         ? `${(spectrum.peakFrequency / 1000).toFixed(2)} kHz`
         : `${spectrum.peakFrequency.toFixed(1)} Hz` },
     ];
-  }, [audio, spectrum, settings.fftSize, settings.playbackFps, isPlaying]);
+  }, [audio, spectrum, settings.fftSize, settings.playbackFps, isPlaying, t]);
 
   return (
     <div
@@ -433,20 +436,21 @@ function App() {
         }
       }}
     >
-      {dragActive && <div className="drop-overlay">Отпустите файл для загрузки</div>}
+      {dragActive && <div className="drop-overlay">{t('dropFile')}</div>}
 
       <header className="app-header">
         <div>
           <h1>Spectralizer</h1>
           {import.meta.env.MODE === 'web' && (
             <p>
-              Веб-версия · <a href="../">Документация</a>
+              {t('webBadge')} · <a href="../">{t('docs')}</a>
               {' · '}
-              <a href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">Скачать</a>
+              <a href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">{t('download')}</a>
             </p>
           )}
         </div>
         <div className="header-actions">
+          <LanguageSwitch />
           <FileUpload
             onFileSelect={(file) => { void loadFile(file); }}
             fileName={audio?.fileName ?? null}
@@ -460,7 +464,7 @@ function App() {
             disabled={!audio || loading}
             onClick={() => void togglePlayback()}
           >
-            {isPlaying ? 'Пауза' : 'Воспроизведение'}
+            {isPlaying ? t('pause') : t('play')}
           </button>
         </div>
       </header>

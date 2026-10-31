@@ -6,6 +6,7 @@ use nih_plug_egui::{create_egui_editor, resizable_window::ResizableWindow, widge
 use parking_lot::Mutex;
 
 use crate::dsp::{build_vco_model, export_vco_model_csv, SpectrumSnapshot};
+use crate::i18n::{text, Lang, UiText};
 use crate::params::SpectralizerParams;
 use crate::theme::{
     self, primary_button, ACCENT, BG_DEEP, BG_INSET, BORDER, FROZEN, GRID, HARMONIC, LIVE, PEAK,
@@ -301,7 +302,22 @@ fn info_chip(ui: &mut Ui, label: &str, value: &str) {
     });
 }
 
-fn draw_spectrum(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerParams) {
+fn language_switch(ui: &mut Ui, params: &SpectralizerParams, setter: &ParamSetter) {
+    for (idx, label) in [(0, "EN"), (1, "DE"), (2, "RU")] {
+        let selected = params.ui_lang.value() == idx;
+        if ui
+            .selectable_label(selected, RichText::new(label).size(11.0).strong())
+            .clicked()
+            && !selected
+        {
+            setter.begin_set_parameter(&params.ui_lang);
+            setter.set_parameter(&params.ui_lang, idx as i32);
+            setter.end_set_parameter(&params.ui_lang);
+        }
+    }
+}
+
+fn draw_spectrum(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerParams, ui_text: &UiText) {
     let log_scale = params.frequency_scale.value() == 0;
     let db_scale = params.magnitude_scale.value() == 0;
     let db_min = params.db_min.value();
@@ -339,6 +355,7 @@ fn draw_spectrum(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &Spectralizer
             db_min,
             db_max,
             hover.as_ref(),
+            ui_text,
         );
 
         if let Some(hover) = hover {
@@ -358,6 +375,7 @@ fn draw_spectrum_in_rect(
     db_min: f32,
     db_max: f32,
     hover: Option<&PlotHover>,
+    ui_text: &UiText,
 ) {
 
         painter.rect_filled(rect, egui::CornerRadius::same(12), BG_DEEP);
@@ -377,7 +395,7 @@ fn draw_spectrum_in_rect(
             painter.text(
                 rect.center(),
                 egui::Align2::CENTER_CENTER,
-                "Ожидание аудиосигнала…",
+                ui_text.waiting,
                 egui::FontId::proportional(14.0),
                 TEXT_MUTED,
             );
@@ -516,7 +534,7 @@ fn draw_spectrum_in_rect(
             painter.text(
                 Pos2::new(peak_x + 10.0, peak_y - 8.0),
                 egui::Align2::LEFT_BOTTOM,
-                format!("Пик: {}", frequency_label(snapshot.peak_frequency)),
+                format!("{}: {}", ui_text.peak, frequency_label(snapshot.peak_frequency)),
                 egui::FontId::proportional(12.0),
                 TEXT,
             );
@@ -547,7 +565,7 @@ fn draw_spectrum_in_rect(
         painter.text(
             Pos2::new(plot.min.x + plot_width * 0.5, plot.max.y + 22.0),
             egui::Align2::CENTER_TOP,
-            "Частота (Hz)",
+            ui_text.freq_axis,
             egui::FontId::proportional(10.0),
             TEXT_MUTED,
         );
@@ -561,51 +579,51 @@ fn setting_row(ui: &mut Ui, label: &str, content: impl FnOnce(&mut Ui)) {
     ui.add_space(4.0);
 }
 
-fn draw_settings(ui: &mut Ui, params: &SpectralizerParams, setter: &ParamSetter) {
+fn draw_settings(ui: &mut Ui, params: &SpectralizerParams, setter: &ParamSetter, ui_text: &UiText) {
     theme::panel_frame().show(ui, |ui| {
-        ui.label(RichText::new("Настройки анализа").size(15.0).strong());
+        ui.label(RichText::new(ui_text.settings).size(15.0).strong());
         ui.add_space(6.0);
 
-        setting_row(ui, "Размер FFT", |ui| {
+        setting_row(ui, ui_text.fft_size, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.fft_size, setter));
         });
-        setting_row(ui, "Оконная функция", |ui| {
+        setting_row(ui, ui_text.window, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.window_type, setter));
         });
-        setting_row(ui, "Канал", |ui| {
+        setting_row(ui, ui_text.channel, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.channel, setter));
         });
-        setting_row(ui, "Шкала частот", |ui| {
+        setting_row(ui, ui_text.freq_scale, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.frequency_scale, setter));
         });
-        setting_row(ui, "Шкала амплитуды", |ui| {
+        setting_row(ui, ui_text.mag_scale, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.magnitude_scale, setter));
         });
 
         if params.magnitude_scale.value() == 0 {
-            setting_row(ui, "Мин. dB", |ui| {
+            setting_row(ui, ui_text.db_min, |ui| {
                 ui.add(widgets::ParamSlider::for_param(&params.db_min, setter));
             });
-            setting_row(ui, "Макс. dB", |ui| {
+            setting_row(ui, ui_text.db_max, |ui| {
                 ui.add(widgets::ParamSlider::for_param(&params.db_max, setter));
             });
         }
 
-        setting_row(ui, "Сглаживание", |ui| {
+        setting_row(ui, ui_text.smoothing, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.smoothing, setter));
         });
-        setting_row(ui, "Сетка", |ui| {
+        setting_row(ui, ui_text.grid, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.show_grid, setter));
         });
-        setting_row(ui, "Пик", |ui| {
+        setting_row(ui, ui_text.peak_marker, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.show_peaks, setter));
         });
-        setting_row(ui, "Гармоники", |ui| {
+        setting_row(ui, ui_text.harmonics, |ui| {
             ui.add(widgets::ParamSlider::for_param(&params.show_harmonics, setter));
         });
 
         if params.show_harmonics.value() {
-            setting_row(ui, "Кол-во гармоник", |ui| {
+            setting_row(ui, ui_text.harmonic_count, |ui| {
                 ui.add(widgets::ParamSlider::for_param(&params.harmonic_count, setter));
             });
         }
@@ -634,25 +652,25 @@ fn level_bar(ui: &mut Ui, level: f32) {
     painter.rect_filled(fill_rect, egui::CornerRadius::same(12), ACCENT);
 }
 
-fn draw_vco_tab(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerParams) {
+fn draw_vco_tab(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerParams, lang: Lang, ui_text: &UiText) {
     theme::panel_frame().show(ui, |ui| {
         if !snapshot.valid {
             ui.vertical_centered(|ui| {
                 ui.add_space(48.0);
                 ui.label(
-                    RichText::new("Дождитесь аудиосигнала для моделирования VCO.")
+                    RichText::new(ui_text.vco_wait)
                         .color(TEXT_MUTED),
                 );
             });
             return;
         }
 
-        let model = build_vco_model(snapshot, params.harmonic_count_value());
+        let model = build_vco_model(snapshot, params.harmonic_count_value(), lang);
 
         ui.horizontal_wrapped(|ui| {
-            summary_card(ui, "Fundamental", &format!("{:.1} Hz", model.fundamental_hz));
-            summary_card(ui, "V/Oct (C0=0 V)", &format!("{:.3} V", model.fundamental_v_oct));
-            summary_card(ui, "Нота", &model.fundamental_note);
+            summary_card(ui, ui_text.fundamental, &format!("{:.1} Hz", model.fundamental_hz));
+            summary_card(ui, ui_text.voct, &format!("{:.3} V", model.fundamental_v_oct));
+            summary_card(ui, ui_text.note, &model.fundamental_note);
         });
 
         ui.add_space(8.0);
@@ -667,7 +685,7 @@ fn draw_vco_tab(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerP
                 .spacing([12.0, 8.0])
                 .min_col_width(60.0)
                 .show(ui, |ui| {
-                    for heading in ["#", "Freq (Hz)", "Note", "V/Oct", "dB rel.", "Level", "VCV Rack"] {
+                    for heading in ["#", ui_text.col_freq, ui_text.col_note, ui_text.col_voct, ui_text.col_db, ui_text.col_level, ui_text.col_rack] {
                         ui.label(
                             RichText::new(heading)
                                 .size(11.0)
@@ -694,42 +712,42 @@ fn draw_vco_tab(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerP
         });
 
         ui.add_space(8.0);
-        if ui.add(primary_button("Копировать CSV")).clicked() {
+        if ui.add(primary_button(ui_text.copy_csv)).clicked() {
             ui.ctx().copy_text(export_vco_model_csv(&model));
         }
     });
 }
 
-fn draw_info_bar(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerParams) {
+fn draw_info_bar(ui: &mut Ui, snapshot: &SpectrumSnapshot, params: &SpectralizerParams, ui_text: &UiText) {
     theme::panel_frame().show(ui, |ui| {
         ui.horizontal_wrapped(|ui| {
-            info_chip(ui, "Sample rate", &format!("{:.0} Hz", snapshot.sample_rate));
+            info_chip(ui, ui_text.sample_rate, &format!("{:.0} Hz", snapshot.sample_rate));
             info_chip(
                 ui,
-                "FFT size",
+                ui_text.fft_size_chip,
                 &format!("{}", params.fft_size_value()),
             );
             info_chip(
                 ui,
-                "Bins",
+                ui_text.bins,
                 &format!("{}", snapshot.magnitudes.len()),
             );
             info_chip(
                 ui,
-                "Разрешение",
+                ui_text.resolution,
                 &format!(
                     "{:.2} Hz/bin",
                     snapshot.sample_rate / params.fft_size_value() as f32
                 ),
             );
-            info_chip(ui, "Пик", &frequency_label(snapshot.peak_frequency));
+            info_chip(ui, ui_text.peak_chip, &frequency_label(snapshot.peak_frequency));
             info_chip(
                 ui,
-                "Режим",
+                ui_text.mode,
                 if snapshot.frozen {
-                    "Заморожен"
+                    ui_text.frozen
                 } else {
-                    "Live"
+                    ui_text.live
                 },
             );
         });
@@ -751,6 +769,8 @@ pub fn create_editor(
             theme::apply_theme(ctx);
         },
         move |egui_ctx, setter, _| {
+            let lang = Lang::from_index(params.ui_lang.value());
+            let ui_text = text(lang);
             let repaint_ms = if spectrum.lock().frozen { 250 } else { 33 };
             egui_ctx.request_repaint_after(std::time::Duration::from_millis(repaint_ms));
 
@@ -764,18 +784,20 @@ pub fn create_editor(
                             ui.horizontal(|ui| {
                                 ui.label(RichText::new("Spectralizer").size(20.0).strong());
                                 ui.label(
-                                    RichText::new("VST spectrum analyzer")
+                                    RichText::new(ui_text.subtitle)
                                         .size(12.0)
                                         .color(TEXT_MUTED),
                                 );
+                                ui.add_space(8.0);
+                                language_switch(ui, &params, setter);
 
                                 ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                                     let snapshot = spectrum.lock();
                                     if snapshot.valid {
                                         let (label, color) = if snapshot.frozen {
-                                            ("Заморожен", FROZEN)
+                                            (ui_text.frozen, FROZEN)
                                         } else {
-                                            ("Live", LIVE)
+                                            (ui_text.live, LIVE)
                                         };
                                         ui.label(
                                             RichText::new(label)
@@ -790,11 +812,11 @@ pub fn create_editor(
 
                         ui.horizontal(|ui| {
                             let active = active_tab.load(std::sync::atomic::Ordering::Relaxed);
-                            if tab_button(ui, "Анализ", "1", active == 0) {
+                            if tab_button(ui, ui_text.tab_analysis, "1", active == 0) {
                                 active_tab.store(0, std::sync::atomic::Ordering::Relaxed);
                             }
                             ui.add_space(12.0);
-                            if tab_button(ui, "VCV VCO", "2", active == 1) {
+                            if tab_button(ui, ui_text.tab_vco, "2", active == 1) {
                                 active_tab.store(1, std::sync::atomic::Ordering::Relaxed);
                             }
                         });
@@ -814,7 +836,7 @@ pub fn create_editor(
                                     .max_height(ui.available_height())
                                     .show(ui, |ui| {
                                         ui.set_width(sidebar_w - 4.0);
-                                        draw_settings(ui, &params, setter);
+                                        draw_settings(ui, &params, setter, ui_text);
                                     });
                             });
 
@@ -824,14 +846,12 @@ pub fn create_editor(
                                 ui.set_width(right_w);
                                 if active == 0 {
                                     if snapshot.valid {
-                                        draw_info_bar(ui, &snapshot, &params);
+                                        draw_info_bar(ui, &snapshot, &params, ui_text);
                                         ui.add_space(6.0);
                                     }
-                                    draw_spectrum(ui, &snapshot, &params);
+                                    draw_spectrum(ui, &snapshot, &params, ui_text);
                                     ui.label(
-                                        RichText::new(
-                                            "Live при Play · Stop замораживает спектр",
-                                        )
+                                        RichText::new(ui_text.live_hint)
                                         .size(11.0)
                                         .color(TEXT_DIM),
                                     );
@@ -841,7 +861,7 @@ pub fn create_editor(
                                         .max_height(ui.available_height())
                                         .show(ui, |ui| {
                                             ui.set_width(right_w - 4.0);
-                                            draw_vco_tab(ui, &snapshot, &params);
+                                            draw_vco_tab(ui, &snapshot, &params, lang, ui_text);
                                         });
                                 }
                             });

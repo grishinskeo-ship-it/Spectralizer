@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { computeHarmonics } from '../audio/harmonics';
+import { useI18n } from '../i18n/I18nContext';
 import type { AnalysisSettings, SpectrumResult } from '../types';
 import {
   PLOT_PADDING,
@@ -28,6 +29,7 @@ interface BrushSelection {
 }
 
 export function SpectrumCanvas({ spectrum, settings, zoom, onZoomChange }: SpectrumCanvasProps) {
+  const { t } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
   const [hover, setHover] = useState<PlotHover | null>(null);
@@ -91,7 +93,7 @@ export function SpectrumCanvas({ spectrum, settings, zoom, onZoomChange }: Spect
       ctx.fillStyle = '#8b949e';
       ctx.font = '14px "Segoe UI", system-ui, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Загрузите аудиофайл для анализа спектра', width / 2, height / 2);
+      ctx.fillText(t('spectrumEmpty'), width / 2, height / 2);
       return;
     }
 
@@ -238,7 +240,7 @@ export function SpectrumCanvas({ spectrum, settings, zoom, onZoomChange }: Spect
           ctx.fillStyle = '#e6edf3';
           ctx.font = '12px "Segoe UI", system-ui, sans-serif';
           ctx.textAlign = 'left';
-          ctx.fillText(`Пик: ${frequencyToLabel(peakFreq)}`, peakX + 10, peakY - 8);
+          ctx.fillText(t('spectrumPeak', { value: frequencyToLabel(peakFreq) }), peakX + 10, peakY - 8);
         }
       }
     }
@@ -275,15 +277,15 @@ export function SpectrumCanvas({ spectrum, settings, zoom, onZoomChange }: Spect
     ctx.fillStyle = '#8b949e';
     ctx.font = '12px "Segoe UI", system-ui, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('Частота (Hz)', PLOT_PADDING.left + plotWidth / 2 - 40, height - 2);
+    ctx.fillText(t('spectrumFreqAxis'), PLOT_PADDING.left + plotWidth / 2 - 40, height - 2);
 
     ctx.save();
     ctx.translate(14, PLOT_PADDING.top + plotHeight / 2);
     ctx.rotate(-Math.PI / 2);
     ctx.textAlign = 'center';
-    ctx.fillText(settings.magnitudeScale === 'db' ? 'Амплитуда (dB)' : 'Амплитуда', 0, 0);
+    ctx.fillText(settings.magnitudeScale === 'db' ? t('spectrumAmpDb') : t('spectrumAmp'), 0, 0);
     ctx.restore();
-  }, [spectrum, settings, hover, zoom, brush]);
+  }, [spectrum, settings, hover, zoom, brush, t]);
 
   const handlePointerMove = (clientX: number, clientY: number) => {
     const layout = getLayout();
@@ -375,7 +377,7 @@ export function SpectrumCanvas({ spectrum, settings, zoom, onZoomChange }: Spect
       <canvas
         ref={canvasRef}
         className="spectrum-canvas"
-        aria-label="График спектра частот"
+        aria-label={t('spectrumAria')}
         onPointerMove={(event) => handlePointerMove(event.clientX, event.clientY)}
         onPointerDown={(event) => {
           if (event.button !== 0) {
@@ -412,12 +414,14 @@ export function SpectrumCanvas({ spectrum, settings, zoom, onZoomChange }: Spect
 
       {zoom && (
         <button type="button" className="reset-zoom-button" onClick={resetZoom}>
-          Сбросить масштаб ({frequencyToLabel(zoom.min)} – {frequencyToLabel(zoom.max)})
+          {t('spectrumResetZoom', {
+            range: `${frequencyToLabel(zoom.min)} – ${frequencyToLabel(zoom.max)}`,
+          })}
         </button>
       )}
 
       <div className="spectrum-chart-hint">
-        Наведите для значений · выделите диапазон для zoom · двойной клик — сброс
+        {t('spectrumZoomHint')}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { buildVcoModel, exportVcoModelCsv } from '../audio/vcoModel';
+import { useI18n } from '../i18n/I18nContext';
 import type { AnalysisSettings, SpectrumResult } from '../types';
 
 interface VcoModelPanelProps {
@@ -8,17 +9,18 @@ interface VcoModelPanelProps {
 }
 
 export function VcoModelPanel({ spectrum, settings }: VcoModelPanelProps) {
+  const { t, lang } = useI18n();
   const model = useMemo(() => {
     if (!spectrum) {
       return null;
     }
-    return buildVcoModel(spectrum, settings.harmonicCount);
-  }, [spectrum, settings.harmonicCount]);
+    return buildVcoModel(spectrum, settings.harmonicCount, lang);
+  }, [spectrum, settings.harmonicCount, lang]);
 
   if (!spectrum || !model) {
     return (
       <div className="vco-panel empty">
-        <p>Загрузите аудио и выберите момент времени для моделирования VCO.</p>
+        <p>{t('vcoEmpty')}</p>
       </div>
     );
   }
@@ -31,19 +33,19 @@ export function VcoModelPanel({ spectrum, settings }: VcoModelPanelProps) {
     <div className="vco-panel">
       <div className="vco-summary">
         <div>
-          <span>Fundamental</span>
+          <span>{t('vcoFundamental')}</span>
           <strong>{model.fundamentalHz.toFixed(1)} Hz</strong>
         </div>
         <div>
-          <span>V/Oct (C0=0 V)</span>
+          <span>{t('vcoVoct')}</span>
           <strong>{model.fundamentalVOct.toFixed(3)} V</strong>
         </div>
         <div>
-          <span>Нота</span>
+          <span>{t('vcoNote')}</span>
           <strong>{model.fundamentalNote}</strong>
         </div>
         <div>
-          <span>Время среза</span>
+          <span>{t('vcoTime')}</span>
           <strong>{spectrum.time.toFixed(2)} s</strong>
         </div>
       </div>
@@ -58,13 +60,13 @@ export function VcoModelPanel({ spectrum, settings }: VcoModelPanelProps) {
         <table className="vco-table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Freq (Hz)</th>
-              <th>Note</th>
-              <th>V/Oct</th>
-              <th>dB rel.</th>
-              <th>Level</th>
-              <th>VCV Rack</th>
+              <th>{t('vcoColHash')}</th>
+              <th>{t('vcoColFreq')}</th>
+              <th>{t('vcoColNote')}</th>
+              <th>{t('vcoColVoct')}</th>
+              <th>{t('vcoColDb')}</th>
+              <th>{t('vcoColLevel')}</th>
+              <th>{t('vcoColRack')}</th>
             </tr>
           </thead>
           <tbody>
@@ -88,7 +90,7 @@ export function VcoModelPanel({ spectrum, settings }: VcoModelPanelProps) {
       </div>
 
       <button type="button" className="upload-button" onClick={() => void copyCsv()}>
-        Копировать CSV
+        {t('vcoCopyCsv')}
       </button>
     </div>
   );

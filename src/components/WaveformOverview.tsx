@@ -1,4 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
+import { useI18n } from '../i18n/I18nContext';
 import type { LoadedAudio, LoopRegion } from '../types';
 import { computeWaveformPeaks } from '../audio/spectrum';
 import { formatTime } from '../audio/loadAudio';
@@ -31,6 +32,7 @@ export function WaveformOverview({
   onLoopRegionChange,
   onClearLoop,
 }: WaveformOverviewProps) {
+  const { t } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const draggingRef = useRef(false);
   const loopDraggingRef = useRef(false);
@@ -159,8 +161,8 @@ export function WaveformOverview({
     <div className="waveform-panel">
       <div className="waveform-header">
         <span>
-          Позиция во времени
-          {loopEnabled && loopRegion ? ' · loop' : loopRegion ? ' · loop (выкл.)' : ''}
+          {t('waveformPosition')}
+          {loopEnabled && loopRegion ? ' · loop' : loopRegion ? t('waveformLoopOff') : ''}
         </span>
         <div className="waveform-header-actions">
           {loopRegion && (
@@ -169,7 +171,7 @@ export function WaveformOverview({
               className="text-button"
               onClick={onClearLoop}
             >
-              Сбросить loop
+              {t('clearLoop')}
             </button>
           )}
           <span className="time-display">
@@ -180,7 +182,7 @@ export function WaveformOverview({
       <canvas
         ref={canvasRef}
         className="waveform-canvas"
-        aria-label="Обзор waveform с ползунком времени"
+        aria-label={t('waveformAria')}
         onDoubleClick={(event) => {
           if (event.shiftKey && loopRegion) {
             event.preventDefault();
@@ -256,11 +258,11 @@ export function WaveformOverview({
           step={0.001}
           value={currentTime}
           onChange={(event) => onTimeChange(Number(event.target.value))}
-          aria-label="Ползунок времени"
+          aria-label={t('waveformSlider')}
         />
       )}
       <p className="setting-hint">
-        Shift + drag — выделить loop. Shift + dblclick или Esc — сбросить.
+        {t('waveformHint')}
       </p>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n/I18nContext';
 import { PhaseCanvas } from './PhaseCanvas';
 import type { FrequencyZoom } from './spectrumChartUtils';
 import type { AnalysisSettings, SpectrumResult } from '../types';
@@ -9,10 +10,11 @@ interface PhasePanelProps {
 }
 
 export function PhasePanel({ spectrum, settings, zoom }: PhasePanelProps) {
+  const { t } = useI18n();
   if (!spectrum) {
     return (
       <div className="phase-tab-panel empty">
-        <p>Загрузите аудио и выберите момент времени для просмотра фазы.</p>
+        <p>{t('phaseEmpty')}</p>
       </div>
     );
   }

@@ -1,3 +1,5 @@
+use crate::i18n::{self, Lang, text};
+
 use super::harmonics::{compute_harmonics, HarmonicInfo};
 use super::spectrum::SpectrumSnapshot;
 
@@ -50,23 +52,7 @@ fn frequency_to_v_oct(frequency: f32) -> f32 {
     (frequency / VCV_C0_HZ).log2()
 }
 
-fn vcv_hint_for_partial(index: u32, relative_db: f32) -> String {
-    if index == 1 {
-        return "Fundamental → V/Oct input (Fundamental, VCO)".to_string();
-    }
-    if relative_db < -36.0 {
-        return "Слишком тихо — пропустить".to_string();
-    }
-    if index == 2 {
-        return "2-я гармоника → detune ×2 или 2-й VCO".to_string();
-    }
-    if index == 3 {
-        return "3-я гармоника → wavetable / FM ratio 3:1".to_string();
-    }
-    format!("Смешать через VCA (~{:.0} dB)", relative_db)
-}
-
-fn harmonic_to_row(harmonic: &HarmonicInfo) -> VcoPartialRow {
+fn harmonic_to_row(harmonic: &HarmonicInfo, lang: Lang) -> VcoPartialRow {
     let midi = frequency_to_midi(harmonic.frequency);
     let label = if harmonic.index == 1 {
         "Fund.".to_string()
@@ -83,11 +69,11 @@ fn harmonic_to_row(harmonic: &HarmonicInfo) -> VcoPartialRow {
         v_oct: frequency_to_v_oct(harmonic.frequency),
         relative_db: harmonic.relative_db,
         normalized_level: harmonic.normalized_level,
-        vcv_hint: vcv_hint_for_partial(harmonic.index, harmonic.relative_db),
+        vcv_hint: i18n::vcv_hint(harmonic.index, harmonic.relative_db, lang),
     }
 }
 
-pub fn build_vco_model(snapshot: &SpectrumSnapshot, harmonic_count: u32) -> VcoModelResult {
+pub fn build_vco_model(snapshot: &SpectrumSnapshot, harmonic_count: u32, lang: Lang) -> VcoModelResult {
     let harmonics = compute_harmonics(snapshot, harmonic_count);
 
     let Some(fundamental) = harmonics.first() else {
@@ -96,38 +82,31 @@ pub fn build_vco_model(snapshot: &SpectrumSnapshot, harmonic_count: u32) -> VcoM
             fundamental_v_oct: 0.0,
             fundamental_note: "—".to_string(),
             partials: Vec::new(),
-            rack_notes: vec!["Не удалось определить тон.".to_string()],
+            rack_notes: vec![text(lang).note_none.to_string()],
         };
     };
 
     let fundamental_midi = frequency_to_midi(fundamental.frequency);
     let fundamental_v_oct = frequency_to_v_oct(fundamental.frequency);
-    let partials: Vec<VcoPartialRow> = harmonics.iter().map(harmonic_to_row).collect();
+    let partials: Vec<VcoPartialRow> = harmonics.iter().map(|h| harmonic_to_row(h, lang)).collect();
     let strong: Vec<&VcoPartialRow> = partials.iter().filter(|p| p.relative_db > -24.0).collect();
 
+    let list = if strong.is_empty() {
+        "—".to_string()
+    } else {
+        strong
+            .iter()
+            .map(|p| p.label.as_str())
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    let ui = text(lang);
     let rack_notes = vec![
-        format!(
-            "Fundamental {:.1} Hz → {:.3} V (VCV Fundamental, 0 V = C0).",
-            fundamental.frequency, fundamental_v_oct
-        ),
-        format!("Нота: {}.", midi_to_note_name(fundamental_midi)),
-        "Для приближения тембра используйте несколько VCO/VCA или модули с additive/FM синтезом."
-            .to_string(),
-        format!(
-            "Заметные partials ({}): {}.",
-            strong.len(),
-            if strong.is_empty() {
-                "—".to_string()
-            } else {
-                strong
-                    .iter()
-                    .map(|p| p.label.as_str())
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            }
-        ),
-        "Detune второго осциллятора: +1200 ct (октава) или +1902 ct (×3) для нечётных гармоник."
-            .to_string(),
+        i18n::note_fund(fundamental.frequency, fundamental_v_oct, lang),
+        i18n::note_note(&midi_to_note_name(fundamental_midi), lang),
+        ui.note_approx.to_string(),
+        i18n::note_partials(strong.len(), &list, lang),
+        ui.note_detune.to_string(),
     ];
 
     VcoModelResult {

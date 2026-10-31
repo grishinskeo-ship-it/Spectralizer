@@ -44,6 +44,9 @@ pub struct SpectralizerParams {
 
     #[id = "harmonic_count"]
     pub harmonic_count: IntParam,
+
+    #[id = "ui_lang"]
+    pub ui_lang: IntParam,
 }
 
 impl Default for SpectralizerParams {
@@ -152,6 +155,20 @@ impl Default for SpectralizerParams {
                     .get(value as usize)
                     .map(|count| count.to_string())
                     .unwrap_or_else(|| value.to_string())
+            })),
+
+            ui_lang: IntParam::new(
+                "Language",
+                2,
+                IntRange::Linear { min: 0, max: 2 },
+            )
+            .non_automatable()
+            .with_value_to_string(Arc::new(|value| {
+                match value {
+                    0 => "English".to_string(),
+                    1 => "Deutsch".to_string(),
+                    _ => "Русский".to_string(),
+                }
             })),
         }
     }

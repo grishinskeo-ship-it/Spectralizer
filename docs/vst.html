@@ -24,51 +24,59 @@
       {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Spectralizer VST","applicationCategory":"MultimediaApplication","operatingSystem":"Windows","softwareVersion":"1.0.0","url":"https://grishinskeo-ship-it.github.io/vst.html","downloadUrl":"https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isAccessibleForFree":true}
     </script>
   </head>
-  <body>
+  <body data-title-key="vst.title" data-desc-key="vst.desc">
     <header class="top">
       <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
+      <div class="top-end">
       <nav>
-        <a href="index.html">Обзор</a>
-        <a href="app/">Веб</a>
+        <a href="index.html" data-i18n="nav.overview">Обзор</a>
+        <a href="app/" data-i18n="nav.web">Веб</a>
         <a href="desktop.html">Desktop</a>
         <a class="active" href="vst.html">VST</a>
-        <a href="install.html">Установка</a>
+        <a href="install.html" data-i18n="nav.install">Установка</a>
         <a href="faq.html">FAQ</a>
       </nav>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-set-lang="en">EN</button>
+        <button type="button" data-set-lang="de">DE</button>
+        <button type="button" data-set-lang="ru">RU</button>
+      </div>
+      </div>
     </header>
     <main class="wrap">
       <p class="kicker">NIH-plug · egui</p>
-      <h1>Плагин для DAW</h1>
-      <p class="lead">
+      <h1 data-i18n="vst.h1">Плагин для DAW</h1>
+      <p class="lead" data-i18n="vst.lead">
         Real-time спектроскоп на дорожке. Аудио проходит без обработки (analyzer / pass-through).
         Пока играет транспорт — спектр обновляется; на Stop остаётся последний кадр.
-        Для файлов вне DAW есть <a href="app/">веб</a> и <a href="desktop.html">Desktop</a>.
+        Для файлов вне DAW есть веб и Desktop.
       </p>
-      <img class="hero-shot" src="screenshots/vst-analysis.png" alt="Spectralizer в FL Studio, вкладка Анализ" />
+      <img class="hero-shot" src="screenshots/vst-analysis.png" alt="Spectralizer в FL Studio, вкладка Анализ" data-i18n-attr="alt:vst.heroAlt" />
 
-      <h2>Вкладки</h2>
+      <h2 data-i18n="vst.tabs">Вкладки</h2>
       <div class="grid">
         <article class="card">
-          <h3>Анализ</h3>
-          <p>FFT, окна, mono/L/R, log/dB, сетка, пик, гармоники, crosshair с частотой и уровнем.</p>
+          <h3 data-i18n="vst.tabAnalysis">Анализ</h3>
+          <p data-i18n="vst.analysisP">FFT, окна, mono/L/R, log/dB, сетка, пик, гармоники, crosshair с частотой и уровнем.</p>
         </article>
         <article class="card">
           <h3>VCV VCO</h3>
-          <p>Модель partials с того же спектра: fundamental, V/Oct, таблица, копирование CSV.</p>
+          <p data-i18n="vst.vcoP">Модель partials с того же спектра: fundamental, V/Oct, таблица, копирование CSV.</p>
         </article>
       </div>
 
-      <h2>Форматы</h2>
+      <h2 data-i18n="vst.formats">Форматы</h2>
       <table>
-        <thead><tr><th>Формат</th><th>Где работает</th></tr></thead>
+        <thead><tr><th data-i18n="vst.format">Формат</th><th data-i18n="vst.where">Где работает</th></tr></thead>
         <tbody>
           <tr><td>VST3</td><td>FL Studio, Reaper, Cubase, Ableton, Studio One…</td></tr>
-          <tr><td>CLAP</td><td>Bitwig, Reaper 7+ и хосты с CLAP</td></tr>
+          <tr><td>CLAP</td><td data-i18n="vst.clapWhere">Bitwig, Reaper 7+ и хосты с CLAP</td></tr>
         </tbody>
       </table>
-      <p>Подробная установка — на странице <a href="install.html">Установка</a>.</p>
+      <p><span data-i18n="vst.installP">Подробная установка — на странице Установка.</span> <a href="install.html" data-i18n="nav.install">Установка</a></p>
     </main>
-    <footer>GPL-3.0-or-later из‑за VST3 bindings NIH-plug</footer>
+    <footer data-i18n="vst.footer">GPL-3.0-or-later из‑за VST3 bindings NIH-plug</footer>
+    <script src="assets/i18n.js"></script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){

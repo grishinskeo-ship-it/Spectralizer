@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { formatFileSize } from '../audio/formats';
+import { useI18n } from '../i18n/I18nContext';
 import { listRecentFiles, loadRecentFile } from '../storage/recentFiles';
 import type { RecentFileEntry } from '../types';
 
@@ -9,6 +10,7 @@ interface RecentFilesListProps {
 }
 
 export function RecentFilesList({ onOpen, refreshKey }: RecentFilesListProps) {
+  const { t } = useI18n();
   const [items, setItems] = useState<RecentFileEntry[]>([]);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export function RecentFilesList({ onOpen, refreshKey }: RecentFilesListProps) {
 
   return (
     <div className="recent-files">
-      <span className="recent-files-title">Недавние</span>
+      <span className="recent-files-title">{t('recent')}</span>
       <ul>
         {items.map((item) => (
           <li key={item.id}>

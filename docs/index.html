@@ -10,6 +10,10 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <meta name="keywords" content="spectrum analyzer, FFT, VST3, CLAP, анализатор спектра, гармоники, VCO, Web Audio" />
     <link rel="canonical" href="https://grishinskeo-ship-it.github.io/" />
+    <link rel="alternate" hreflang="en" href="https://grishinskeo-ship-it.github.io/" />
+    <link rel="alternate" hreflang="de" href="https://grishinskeo-ship-it.github.io/" />
+    <link rel="alternate" hreflang="ru" href="https://grishinskeo-ship-it.github.io/" />
+    <link rel="alternate" hreflang="x-default" href="https://grishinskeo-ship-it.github.io/" />
     <link rel="alternate" type="text/markdown" href="index.md" />
     <link rel="describedby" href="llms.txt" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -25,81 +29,89 @@
       {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Spectralizer","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, Web","softwareVersion":"1.0.0","url":"https://grishinskeo-ship-it.github.io/","downloadUrl":"https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0","license":"https://www.gnu.org/licenses/gpl-3.0.html","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"codeRepository":"https://github.com/grishinskeo-ship-it/Spectralizer","description":"Анализатор частотного спектра: веб-приложение, Windows desktop и VST3/CLAP плагин. FFT, гармоники, фаза, resynth, модель VCO для VCV Rack."}
     </script>
   </head>
-  <body>
+  <body data-title-key="index.title" data-desc-key="index.desc">
     <header class="top">
       <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" />Spectralizer</a>
+      <div class="top-end">
       <nav>
-        <a class="active" href="index.html">Обзор</a>
-        <a href="app/">Веб</a>
+        <a class="active" href="index.html" data-i18n="nav.overview">Обзор</a>
+        <a href="app/" data-i18n="nav.web">Веб</a>
         <a href="desktop.html">Desktop</a>
         <a href="vst.html">VST</a>
-        <a href="install.html">Установка</a>
+        <a href="install.html" data-i18n="nav.install">Установка</a>
         <a href="faq.html">FAQ</a>
       </nav>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-set-lang="en">EN</button>
+        <button type="button" data-set-lang="de">DE</button>
+        <button type="button" data-set-lang="ru">RU</button>
+      </div>
+      </div>
     </header>
 
     <main class="wrap">
-      <p class="kicker">Веб · Desktop · VST3 / CLAP</p>
-      <h1>Смотрите, из чего состоит звук</h1>
-      <p class="lead">
+      <p class="kicker" data-i18n="index.kicker">Веб · Desktop · VST3 / CLAP</p>
+      <h1 data-i18n="index.h1">Смотрите, из чего состоит звук</h1>
+      <p class="lead" data-i18n="index.lead">
         Spectralizer — анализатор частотного спектра. В браузере разбирает загруженный файл
         по гармоникам, фазе и resynth. Плагин в DAW показывает спектр дорожки в реальном
         времени и не трогает звук.
       </p>
       <div class="actions">
-        <a class="btn" href="app/">Открыть в браузере</a>
-        <a class="btn ghost" href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0">Скачать v1.0.0</a>
-        <a class="btn ghost" href="install.html">Как установить</a>
+        <a class="btn" href="app/" data-i18n="index.openWeb">Открыть в браузере</a>
+        <a class="btn ghost" href="https://github.com/grishinskeo-ship-it/Spectralizer/releases/tag/v1.0.0" data-i18n="index.download">Скачать v1.0.0</a>
+        <a class="btn ghost" href="install.html" data-i18n="index.howInstall">Как установить</a>
       </div>
 
-      <img class="hero-shot" src="screenshots/desktop-analysis.png" alt="Вкладка Анализ: спектр, настройки FFT и waveform" />
+      <img class="hero-shot" src="screenshots/desktop-analysis.png" alt="Вкладка Анализ: спектр, настройки FFT и waveform" data-i18n-attr="alt:index.heroAlt" />
 
-      <h2>Кому это нужно</h2>
+      <h2 data-i18n="index.who">Кому это нужно</h2>
       <div class="grid">
         <article class="card">
-          <h3>Саунд-дизайнерам</h3>
-          <p>Увидеть fundamental, обертона и пик, снять модель для VCV Rack / additive и понять, чем тембр «толстый».</p>
+          <h3 data-i18n="index.sound">Саунд-дизайнерам</h3>
+          <p data-i18n="index.soundP">Увидеть fundamental, обертона и пик, снять модель для VCV Rack / additive и понять, чем тембр «толстый».</p>
         </article>
         <article class="card">
-          <h3>Продюсерам в DAW</h3>
-          <p>Повесить VST на канал или master: спектр живёт вместе с транспортом, на Stop замирает последний кадр.</p>
+          <h3 data-i18n="index.prod">Продюсерам в DAW</h3>
+          <p data-i18n="index.prodP">Повесить VST на канал или master: спектр живёт вместе с транспортом, на Stop замирает последний кадр.</p>
         </article>
         <article class="card">
-          <h3>Тем, кто учит DSP</h3>
-          <p>FFT, окна, log/dB шкалы, фаза и экспериментальный iFFT-resynth — без MATLAB и без облака.</p>
+          <h3 data-i18n="index.dsp">Тем, кто учит DSP</h3>
+          <p data-i18n="index.dspP">FFT, окна, log/dB шкалы, фаза и экспериментальный iFFT-resynth — без MATLAB и без облака.</p>
         </article>
       </div>
 
-      <h2>Три способа пользоваться</h2>
+      <h2 data-i18n="index.three">Три способа пользоваться</h2>
       <table>
         <thead>
           <tr>
-            <th>Что</th>
-            <th>Для чего</th>
-            <th>Кому</th>
+            <th data-i18n="index.colWhat">Что</th>
+            <th data-i18n="index.colWhy">Для чего</th>
+            <th data-i18n="index.colWho">Кому</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><a href="app/">Веб</a></td>
-            <td>Тот же анализатор в браузере, файл никуда не уходит</td>
-            <td>Попробовать сразу, без установки</td>
+            <td><a href="app/" data-i18n="index.web">Веб</a></td>
+            <td data-i18n="index.webWhy">Тот же анализатор в браузере, файл никуда не уходит</td>
+            <td data-i18n="index.webWho">Попробовать сразу, без установки</td>
           </tr>
           <tr>
             <td><a href="desktop.html">Desktop</a></td>
-            <td>Файл → спектр, фаза, resynth, таблица VCO</td>
-            <td>Офлайн, Windows portable .exe</td>
+            <td data-i18n="index.deskWhy">Файл → спектр, фаза, resynth, таблица VCO</td>
+            <td data-i18n="index.deskWho">Офлайн, Windows portable .exe</td>
           </tr>
           <tr>
             <td><a href="vst.html">VST3 / CLAP</a></td>
-            <td>Спектр входа DAW, pass-through, вкладка VCO</td>
-            <td>FL Studio, Reaper, Bitwig и другие хосты</td>
+            <td data-i18n="index.vstWhy">Спектр входа DAW, pass-through, вкладка VCO</td>
+            <td data-i18n="index.vstWho">FL Studio, Reaper, Bitwig и другие хосты</td>
           </tr>
         </tbody>
       </table>
     </main>
 
     <footer>GPL-3.0-or-later · v1.0.0 · <a href="https://github.com/grishinskeo-ship-it/Spectralizer">GitHub</a></footer>
+    <script src="assets/i18n.js"></script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){

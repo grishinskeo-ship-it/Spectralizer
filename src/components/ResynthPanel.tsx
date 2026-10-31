@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { estimateResynthDuration } from '../audio/resynth';
 import type { ResynthPreview } from '../audio/resynth';
 import { formatTime } from '../audio/loadAudio';
+import { hopKey } from '../i18n/strings';
+import { useI18n } from '../i18n/I18nContext';
 import type { AnalysisSettings, LoadedAudio } from '../types';
 import { RESYNTH_FRAME_COUNT_OPTIONS, RESYNTH_HOP_RATIO_OPTIONS } from '../types';
 import type { SampleZoom } from './resynthChartUtils';
@@ -37,6 +39,7 @@ export function ResynthPanel({
   onSettingsChange,
   onResynth,
 }: ResynthPanelProps) {
+  const { t } = useI18n();
   const update = <K extends keyof AnalysisSettings>(key: K, value: AnalysisSettings[K]) => {
     onSettingsChange({ ...settings, [key]: value });
   };
@@ -59,7 +62,7 @@ export function ResynthPanel({
   if (!audio) {
     return (
       <div className="resynth-panel empty">
-        <p>Загрузите аудио для экспериментального resynth через iFFT.</p>
+        <p>{t('resynthEmpty')}</p>
       </div>
     );
   }
@@ -68,19 +71,19 @@ export function ResynthPanel({
     <div className="resynth-panel">
       <div className="resynth-summary">
         <div>
-          <span>Старт</span>
+          <span>{t('resynthStart')}</span>
           <strong>{formatTime(currentTime)}</strong>
         </div>
         <div>
-          <span>Кадров</span>
+          <span>{t('resynthFrames')}</span>
           <strong>{estimate.frames} / {settings.resynthFrameCount}</strong>
         </div>
         <div>
-          <span>Длительность</span>
+          <span>{t('resynthDuration')}</span>
           <strong>{formatDuration(estimate.seconds)}</strong>
         </div>
         <div>
-          <span>Окно FFT</span>
+          <span>{t('resynthFftWindow')}</span>
           <strong>{frameMs.toFixed(0)} ms</strong>
         </div>
       </div>
@@ -94,7 +97,7 @@ export function ResynthPanel({
 
       <div className="resynth-controls">
         <label className="setting">
-          <span>Кол-во кадров</span>
+          <span>{t('frameCountShort')}</span>
           <select
             value={settings.resynthFrameCount}
             onChange={(event) => update('resynthFrameCount', Number(event.target.value))}
@@ -106,13 +109,13 @@ export function ResynthPanel({
         </label>
 
         <label className="setting">
-          <span>Шаг между кадрами</span>
+          <span>{t('hop')}</span>
           <select
             value={settings.resynthHopRatio}
             onChange={(event) => update('resynthHopRatio', Number(event.target.value))}
           >
-            {RESYNTH_HOP_RATIO_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>{option.label}</option>
+            {RESYNTH_HOP_RATIO_OPTIONS.map((value) => (
+              <option key={value} value={value}>{t(hopKey(value))}</option>
             ))}
           </select>
         </label>
@@ -125,11 +128,9 @@ export function ResynthPanel({
           disabled={resynthBusy || estimate.frames === 0}
           onClick={() => void onResynth()}
         >
-          {resynthBusy ? 'Resynth…' : 'Resynth (R)'}
+          {resynthBusy ? t('resynthRunning') : t('resynthRun')}
         </button>
-        <p className="setting-hint">
-          Экспериментальный overlap-add iFFT от текущей позиции. Окно анализа не инвертируется — звук приблизительный.
-        </p>
+        <p className="setting-hint">{t('resynthHint')}</p>
       </div>
     </div>
   );

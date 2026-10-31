@@ -1,3 +1,4 @@
+import { interpolate, STRINGS, type Lang } from '../i18n/strings';
 import { computeHarmonics } from './harmonics';
 import type { SpectrumResult, VcoModelResult, VcoPartialRow } from '../types';
 
@@ -22,27 +23,31 @@ function frequencyToVOctFundamental(frequency: number): number {
   return Math.log2(frequency / VCV_C0_HZ);
 }
 
-function vcvHintForPartial(index: number, relativeDb: number): string {
+function t(lang: Lang, key: string, vars?: Record<string, string | number>): string {
+  return interpolate(STRINGS[lang][key] ?? STRINGS.en[key] ?? key, vars);
+}
+
+function vcvHintForPartial(lang: Lang, index: number, relativeDb: number): string {
   if (index === 1) {
-    return 'Fundamental → V/Oct input (Fundamental, VCO)';
+    return t(lang, 'vcoHintFund');
   }
 
   if (relativeDb < -36) {
-    return 'Слишком тихо — пропустить';
+    return t(lang, 'vcoHintQuiet');
   }
 
   if (index === 2) {
-    return '2-я гармоника → detune ×2 или 2-й VCO';
+    return t(lang, 'vcoHintH2');
   }
 
   if (index === 3) {
-    return '3-я гармоника → wavetable / FM ratio 3:1';
+    return t(lang, 'vcoHintH3');
   }
 
-  return `Смешать через VCA (~${relativeDb.toFixed(0)} dB)`;
+  return t(lang, 'vcoHintVca', { value: relativeDb.toFixed(0) });
 }
 
-export function buildVcoModel(spectrum: SpectrumResult, harmonicCount = 8): VcoModelResult {
+export function buildVcoModel(spectrum: SpectrumResult, harmonicCount = 8, lang: Lang = 'en'): VcoModelResult {
   const harmonics = computeHarmonics(spectrum, harmonicCount);
   const fundamental = harmonics[0];
 
@@ -52,7 +57,7 @@ export function buildVcoModel(spectrum: SpectrumResult, harmonicCount = 8): VcoM
       fundamentalVOct: 0,
       fundamentalNote: '—',
       partials: [],
-      rackNotes: ['Не удалось определить тон.'],
+      rackNotes: [t(lang, 'vcoNoteNone')],
     };
   }
 
@@ -72,18 +77,24 @@ export function buildVcoModel(spectrum: SpectrumResult, harmonicCount = 8): VcoM
       vOct: frequencyToVOctFundamental(harmonic.frequency),
       relativeDb: harmonic.relativeDb,
       normalizedLevel: harmonic.normalizedLevel,
-      vcvHint: vcvHintForPartial(harmonic.index, harmonic.relativeDb),
+      vcvHint: vcvHintForPartial(lang, harmonic.index, harmonic.relativeDb),
     };
   });
 
   const strongPartials = partials.filter((p) => p.relativeDb > -24);
 
   const rackNotes = [
-    `Fundamental ${fundamental.frequency.toFixed(1)} Hz → ${fundamentalVOct.toFixed(3)} V (VCV Fundamental, 0 V = C0).`,
-    `Нота: ${midiToNoteName(fundamentalMidi)}.`,
-    'Для приближения тембра используйте несколько VCO/VCA или модули с additive/FM синтезом.',
-    `Заметные partials (${strongPartials.length}): ${strongPartials.map((p) => p.label).join(', ') || '—'}.`,
-    'Detune второго осциллятора: +1200 ct (октава) или +1902 ct (×3) для нечётных гармоник.',
+    t(lang, 'vcoNoteFund', {
+      hz: fundamental.frequency.toFixed(1),
+      v: fundamentalVOct.toFixed(3),
+    }),
+    t(lang, 'vcoNoteNote', { note: midiToNoteName(fundamentalMidi) }),
+    t(lang, 'vcoNoteApprox'),
+    t(lang, 'vcoNotePartials', {
+      count: strongPartials.length,
+      list: strongPartials.map((p) => p.label).join(', ') || '—',
+    }),
+    t(lang, 'vcoNoteDetune'),
   ];
 
   return {

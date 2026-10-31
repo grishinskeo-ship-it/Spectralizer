@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatResynthTime, type ResynthPreview } from '../audio/resynth';
+import { useI18n } from '../i18n/I18nContext';
 import { formatTime } from '../audio/loadAudio';
 import {
   formatSampleRange,
@@ -279,6 +280,7 @@ export function ResynthWaveforms({
   zoom,
   onZoomChange,
 }: ResynthWaveformsProps) {
+  const { t } = useI18n();
   const overlayRef = useRef<HTMLCanvasElement>(null);
   const combinedRef = useRef<HTMLCanvasElement>(null);
   const draggingRef = useRef(false);
@@ -328,7 +330,7 @@ export function ResynthWaveforms({
       overlayCtx.fillStyle = '#8b949e';
       overlayCtx.font = '13px "Segoe UI", system-ui, sans-serif';
       overlayCtx.textAlign = 'center';
-      overlayCtx.fillText('Нет кадров для resynth', overlayRect.width / 2, overlayRect.height / 2);
+      overlayCtx.fillText(t('resynthNoFramesCanvas'), overlayRect.width / 2, overlayRect.height / 2);
       return;
     }
 
@@ -380,7 +382,7 @@ export function ResynthWaveforms({
     }
 
     drawTimeAxis(combinedCtx, bounds, combinedRect.width, combinedRect.height, sampleRate);
-  }, [preview, sampleRate, zoom, brush]);
+  }, [preview, sampleRate, zoom, brush, t]);
 
   useEffect(() => {
     const canvases = [overlayRef.current, combinedRef.current].filter(Boolean) as HTMLCanvasElement[];
@@ -489,7 +491,7 @@ export function ResynthWaveforms({
   if (!preview) {
     return (
       <div className="resynth-waves empty">
-        <p>Нет кадров для resynth в текущей позиции.</p>
+        <p>{t('resynthNoFrames')}</p>
       </div>
     );
   }
@@ -500,14 +502,14 @@ export function ResynthWaveforms({
     <div className="resynth-waves">
       {zoom && (
         <button type="button" className="reset-zoom-button" onClick={resetZoom}>
-          Сбросить масштаб ({formatSampleRange(bounds.min, bounds.max, sampleRate)})
+          {t('resynthResetZoom', { range: formatSampleRange(bounds.min, bounds.max, sampleRate) })}
         </button>
       )}
 
       <div className="resynth-waves-section">
         <div className="resynth-waves-header">
-          <h3>Кадры iFFT</h3>
-          <span className="setting-hint">Каждая волна смещена на {preview.plan.hopSamples} samples</span>
+          <h3>{t('resynthIfftFrames')}</h3>
+          <span className="setting-hint">{t('resynthFrameOffset', { value: preview.plan.hopSamples })}</span>
         </div>
         <ul className="resynth-frame-legend">
           {preview.frames.map((frame) => (
@@ -517,7 +519,7 @@ export function ResynthWaveforms({
                 style={{ background: FRAME_COLORS[frame.index % FRAME_COLORS.length] }}
               />
               <span>
-                Кадр {frame.index + 1}
+                {t('resynthFrameN', { index: frame.index + 1 })}
                 {' · '}
                 {formatTime(frame.centerTime)}
                 {' · '}
@@ -529,7 +531,7 @@ export function ResynthWaveforms({
         <canvas
           ref={overlayRef}
           className="resynth-waves-canvas overlay zoomable"
-          aria-label="Наложение iFFT-кадров resynth"
+          aria-label={t('resynthOverlayAria')}
           onDoubleClick={(event) => {
             event.preventDefault();
             resetZoom();
@@ -539,7 +541,7 @@ export function ResynthWaveforms({
 
       <div className="resynth-waves-section">
         <div className="resynth-waves-header">
-          <h3>Итог overlap-add</h3>
+          <h3>{t('resynthCombined')}</h3>
           <span className="setting-hint">
             {preview.plan.outputSamples.toLocaleString()} samples · {formatResynthTime(preview.plan.outputDurationSec)}
           </span>
@@ -547,7 +549,7 @@ export function ResynthWaveforms({
         <canvas
           ref={combinedRef}
           className="resynth-waves-canvas combined zoomable"
-          aria-label="Итоговая волна resynth"
+          aria-label={t('resynthCombinedAria')}
           onDoubleClick={(event) => {
             event.preventDefault();
             resetZoom();
@@ -556,7 +558,7 @@ export function ResynthWaveforms({
       </div>
 
       <p className="resynth-zoom-hint">
-        Выделите диапазон для zoom · колесо мыши · двойной клик или Esc — сброс · +/- — масштаб
+        {t('resynthZoomHint')}
       </p>
     </div>
   );

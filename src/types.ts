@@ -109,10 +109,6 @@ export const HARMONIC_COUNT_OPTIONS = [4, 6, 8, 12, 16] as const;
 export const FFT_SIZES = [256, 512, 1024, 2048, 4096, 8192] as const;
 
 export const RESYNTH_FRAME_COUNT_OPTIONS = [1, 2, 4, 8, 16, 32] as const;
-export const RESYNTH_HOP_RATIO_OPTIONS = [
-  { value: 0.25, label: '75% overlap' },
-  { value: 0.5, label: '50% overlap' },
-  { value: 1, label: 'Без overlap' },
-] as const;
+export const RESYNTH_HOP_RATIO_OPTIONS = [0.25, 0.5, 1] as const;
 
 export const AUDIO_ACCEPT = 'audio/*,.mp3,.wav,.flac,.ogg,.oga,.opus,.m4a,.aac';

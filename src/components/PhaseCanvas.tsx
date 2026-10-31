@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useI18n } from '../i18n/I18nContext';
 import type { AnalysisSettings, SpectrumResult } from '../types';
 import {
   PLOT_PADDING,
@@ -34,6 +35,7 @@ function phaseToLabel(radians: number): string {
 }
 
 export function PhaseCanvas({ spectrum, settings, zoom }: PhaseCanvasProps) {
+  const { t } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
   const [hover, setHover] = useState<PhaseHover | null>(null);
@@ -76,7 +78,7 @@ export function PhaseCanvas({ spectrum, settings, zoom }: PhaseCanvasProps) {
       ctx.fillStyle = '#8b949e';
       ctx.font = '13px "Segoe UI", system-ui, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Фаза появится после загрузки аудио', width / 2, height / 2);
+      ctx.fillText(t('phaseEmptyCanvas'), width / 2, height / 2);
       return;
     }
 
@@ -157,8 +159,8 @@ export function PhaseCanvas({ spectrum, settings, zoom }: PhaseCanvasProps) {
     ctx.fillStyle = '#8b949e';
     ctx.font = '11px "Segoe UI", system-ui, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('Фаза (°)', PLOT_PADDING.left + 4, PLOT_PADDING.top + 12);
-  }, [spectrum, settings, zoom, hover]);
+    ctx.fillText(t('phaseAxis'), PLOT_PADDING.left + 4, PLOT_PADDING.top + 12);
+  }, [spectrum, settings, zoom, hover, t]);
 
   const handleMove = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
@@ -219,7 +221,7 @@ export function PhaseCanvas({ spectrum, settings, zoom }: PhaseCanvasProps) {
       <canvas
         ref={canvasRef}
         className="phase-canvas"
-        aria-label="График фазы спектра"
+        aria-label={t('phaseAria')}
         onPointerMove={(event) => handleMove(event.clientX, event.clientY)}
         onPointerLeave={() => setHover(null)}
       />

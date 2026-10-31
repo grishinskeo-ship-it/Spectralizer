@@ -47,6 +47,34 @@
   justify-content: flex-end;
 }
 
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.lang-switch button {
+  background: transparent;
+  color: #8b949e;
+  border: 0;
+  padding: 0.4rem 0.65rem;
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.lang-switch button:hover {
+  color: #e6edf3;
+}
+
+.lang-switch button.active {
+  background: #1f6feb;
+  color: #fff;
+}
+
 .file-upload {
   display: flex;
   align-items: center;

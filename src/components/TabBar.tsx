@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n/I18nContext';
 import type { AppTab } from '../types';
 
 interface TabBarProps {
@@ -5,17 +6,18 @@ interface TabBarProps {
   onChange: (tab: AppTab) => void;
 }
 
-const TABS: { id: AppTab; label: string; hint: string }[] = [
-  { id: 'analysis', label: 'Анализ', hint: '1' },
-  { id: 'vco', label: 'VCV VCO', hint: '2' },
-  { id: 'phase', label: 'Фаза', hint: '3' },
-  { id: 'resynth', label: 'Resynth', hint: '4' },
-];
-
 export function TabBar({ activeTab, onChange }: TabBarProps) {
+  const { t } = useI18n();
+  const tabs: { id: AppTab; label: string; hint: string }[] = [
+    { id: 'analysis', label: t('tabAnalysis'), hint: '1' },
+    { id: 'vco', label: t('tabVco'), hint: '2' },
+    { id: 'phase', label: t('tabPhase'), hint: '3' },
+    { id: 'resynth', label: t('tabResynth'), hint: '4' },
+  ];
+
   return (
-    <div className="tab-bar" role="tablist" aria-label="Режимы приложения">
-      {TABS.map((tab) => (
+    <div className="tab-bar" role="tablist" aria-label={t('tablist')}>
+      {tabs.map((tab) => (
         <button
           key={tab.id}
           type="button"
